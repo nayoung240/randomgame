@@ -14,9 +14,10 @@
         background-color: #CB6CE6;
         color: white;
         font-family: 'IBM Plex Sans KR', sans-serif;
+        padding: 10px;
     }
 
-    header, footer {
+    header, main, footer {
         margin-top: 30px;
     }
 
@@ -28,6 +29,7 @@
         justify-content: center;
         align-items: center;
         margin: 10px;
+        cursor: pointer;
     }
 
     .gamecard img {
@@ -35,30 +37,72 @@
         height: 100px;
     }
 
-    .cardselected {
+    .cardselected[data-card="scissors"] {
+        background-color: #FFF08E;
+    }
+    .cardselected[data-card="rock"] {
         background-color: #A7E8CE;
+    }
+    .cardselected[data-card="paper"] {
+        background-color: #9FB4FF;
+    }
+
+    #idarea {
+        height: 200px;
+        width: 300px;
+        background-color: #F6EDF8;
     }
 </style>
 <body>
     <header class="text-center">
-        <h1>안내면 진다!</h1>
-        <p>&lt; 카드를 선택해주세요 &gt;</p>
+        <div class="default">
+            <h1>안내면 진다!</h1>
+            <p>&lt; 카드를 선택해주세요 &gt;</p>
+        </div>
+        <div class="wait" style="display: none;">
+            <h1>유저 선택중</h1>
+            <p>&lt; 5초 뒤 결과확인 &gt;</p>
+            <div class="spinner-grow spinner-grow-sm text-light" role="status"><span class="visually-hidden">Loading...</span></div>
+            <div class="spinner-grow spinner-grow-sm text-light" role="status"><span class="visually-hidden">Loading...</span></div>
+            <div class="spinner-grow spinner-grow-sm text-light" role="status"><span class="visually-hidden">Loading...</span></div>
+        </div>
+        <div class="complete" style="display: none;">
+            <h4 class="text-warning">BJ의 선택!</h4>
+        </div>
     </header>
     <main>
+        <!-- 선택 시 class=cardselected 추가 -->
         <div class="d-flex justify-content-center">
-            <div class="gamecard rounded">
+            <div class="gamecard rounded" data-card="scissors">
                 <img src="./img/ex.png" alt="가위">
             </div>
-            <div class="gamecard rounded cardselected">
+            <div class="gamecard rounded" data-card="rock">
                 <img src="./img/ex.png" alt="바위">
             </div>
-            <div class="gamecard rounded">
+            <div class="gamecard rounded" data-card="paper">
                 <img src="./img/ex.png" alt="보">
             </div>
         </div>
     </main>
     <footer class="text-center">
-        <button type="button" class="btn btn-outline-light col-3">선택하기</button>
+        <button type="button" id="selectbtn" class="default btn btn-outline-light col-3">선택하기</button>
+        <div class="complete" style="display: none;">
+            <p>이긴사람 ID</p>
+            <p>&lt; <span id="wincnt">0</span>/<span id="allcnt">0</span> &gt;</p>
+            <div class="d-flex justify-content-center">
+                <div class="form-floating">
+                    <textarea class="form-control text-black" id="idarea" disabled></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="toast-container position-fixed bottom-0 start-50 translate-middle-x">
+            <div class="toast align-items-center text-dark" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                <div class="toast-body"></div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
     </footer>
     <!--JavaScript at end of body for optimized loading-->
     <script type="text/javascript" charset="UTF-8" src="https://static.afreecatv.com/asset/app/extension-helper/afreecatv-extension-sdk.js"></script>
