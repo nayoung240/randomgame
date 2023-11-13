@@ -1,5 +1,7 @@
 const selectbtn = document.querySelector('#selectbtn');
 const gamecardClasses = document.querySelectorAll('.gamecard');
+const resultmsg = document.querySelector('#resultmsg');
+const idarea = document.querySelector('#idarea');
 
 // UI : default -> wait -> complete
 const defaultClasses = document.querySelectorAll('.default');
@@ -27,6 +29,19 @@ const setCompleteDisplay = (action) => {
 const showResult = () => {
     setWaitDisplay('hide');
     setCompleteDisplay('show');
+    
+    let msg = 'BJ가 모두를 이겼습니다!';
+    const winCnt = 10;
+    const allCnt = 100;
+    const winNicks = ['정보경','이나영','손가을','폭주중','정보경','이나영','손가을','폭주중','정보경','이나영','손가을','폭주중','정보경','이나영','손가을','폭주중','정보경','이나영','손가을','폭주중'];
+
+    if(winCnt > 0) {
+        msg = `${allCnt}명중에 ${winCnt}명이 BJ를 이겼습니다!`;
+        idarea.innerHTML  = '<< 이긴 유저 >><br>'+winNicks.join('<br>');
+        idarea.style.display = '';
+    }
+
+    resultmsg.innerText = msg;
 }
 
 // 게임카드 click
@@ -72,12 +87,13 @@ selectbtn.addEventListener('click', function() {
 
     let elapsedTime = 0;
 
-    setInterval(function () {
+    const setIntervaltimer = setInterval(function () {
         elapsedTime += 1000; // 1초씩 증가
 
         // 타이머 종료
         if (elapsedTime >= 5000) {
             console.log('end')
+            clearInterval(setIntervaltimer);
             showResult();
             return;
         }

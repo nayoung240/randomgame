@@ -55,17 +55,20 @@
 </style>
 <body>
     <header class="text-center">
+        <!-- 1.초기 화면 -->
         <div class="default">
             <h1>안내면 진다!</h1>
             <p>&lt; 카드를 선택해주세요 &gt;</p>
         </div>
+        <!-- 2.기다리는 화면 -->
         <div class="wait" style="display: none;">
-            <h1>유저 선택중</h1>
+            <h1>유저가 가위바위보 고르는 중</h1>
             <p>&lt; 5초 뒤 결과확인 &gt;</p>
             <div class="spinner-grow spinner-grow-sm text-light" role="status"><span class="visually-hidden">Loading...</span></div>
             <div class="spinner-grow spinner-grow-sm text-light" role="status"><span class="visually-hidden">Loading...</span></div>
             <div class="spinner-grow spinner-grow-sm text-light" role="status"><span class="visually-hidden">Loading...</span></div>
         </div>
+        <!-- 3.결과 화면 -->
         <div class="complete" style="display: none;">
             <h4 class="text-warning">BJ의 선택!</h4>
         </div>
@@ -85,13 +88,17 @@
         </div>
     </main>
     <footer class="text-center">
-        <button type="button" id="selectbtn" class="default btn btn-outline-light col-3">선택하기</button>
+        <!-- 1.초기 화면 -->
+        <div class="default">
+            <p>선택하기를 누르면 5초 뒤 유저가 선택하게됩니다.</p>
+            <button type="button" id="selectbtn" class="btn btn-outline-light col-3">선택하기</button>
+        </div>
+        <!-- 3.결과 화면 -->
         <div class="complete" style="display: none;">
-            <p>이긴사람 ID</p>
-            <p>&lt; <span id="wincnt">0</span>/<span id="allcnt">0</span> &gt;</p>
+            <p id="resultmsg"></p>
             <div class="d-flex justify-content-center">
                 <div class="form-floating">
-                    <textarea class="form-control text-black" id="idarea" disabled></textarea>
+                    <textarea class="form-control text-black" id="idarea" style="display: none;" disabled></textarea>
                 </div>
             </div>
         </div>
