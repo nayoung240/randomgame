@@ -33,11 +33,11 @@ const showResult = () => {
     let msg = 'BJ가 모두를 이겼습니다!';
     const winCnt = 10;
     const allCnt = 100;
-    const winNicks = ['정보경','이나영','손가을','폭주중','정보경','이나영','손가을','폭주중','정보경','이나영','손가을','폭주중','정보경','이나영','손가을','폭주중','정보경','이나영','손가을','폭주중'];
+    const winNicks = ['정보경','ababaabababa','손가을손가을','폭주중','정보경','이나영','손가을','폭주중','정보경','이나영','손가을','폭주중','정보경','이나영','손가을','폭주중','정보경','이나영','손가을','폭주중'];
 
     if(winCnt > 0) {
         msg = `${allCnt}명중에 ${winCnt}명이 BJ를 이겼습니다!`;
-        idarea.innerHTML  = '<< 이긴 유저 >><br>'+winNicks.join('<br>');
+        idarea.value  = '<< 이긴 유저 >>\n'+winNicks.join('\n');
         idarea.style.display = '';
     }
 
