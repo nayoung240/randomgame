@@ -1,8 +1,11 @@
 const SDK = window.AFREECA.ext;
 const extensionSdk = SDK();
-const TIMER = 'timer';
-const SELECTCARD = 'selectCard';
-const END = 'end';
+const TIMER_BY_USER = 'timer_user';
+const SELECTCARD_BY_USER = 'selectcard_user';
+const END_BY_USER = 'end_user';
+const TIMER_BY_BJ = 'timer_bj';
+const SELECTCARD_BY_BJ = 'selectcard_bj';
+const END_BY_BJ = 'end_bj';
 
 const selectbtn = document.querySelector('#selectbtn');
 const gamecardClasses = document.querySelectorAll('.gamecard');
@@ -22,9 +25,56 @@ let userSelectCard = ''; // 유저가 선택한 카드
 let isGameStart = false;
 const elapsedImg = ['img1', 'img2', 'img3', 'img4', 'img5'];
 
+const setDefaultDisplay = (action) => {
+    defaultClasses.forEach(function (el) {
+        el.style.display = action === 'show' ? '' : 'none';
+    });
+}
+
+const setWaitDisplay = (action) => {
+    waitClasses.forEach(function (el) {
+        el.style.display = action === 'show' ? '' : 'none';
+    });
+
+    gamecardClasses.forEach(function(el) {
+        el.style.pointerEvents = action === 'show' ? 'auto' : 'none';
+    })
+}
+
+const setCompleteDisplay = (action) => {
+    completeClasses.forEach(function(el) {
+        el.style.display = action === 'show' ? '' : 'none';
+    });
+}
+
+const showBjResult = (oResult) => {
+    setWaitDisplay('hide');
+    setCompleteDisplay('show');
+
+    console.log('show',oResult);
+
+    gamecardClasses.forEach(function (el) {
+        // BJ가 고른 카드만 보여주기
+        if (el.dataset.card !== oResult.bjcard) {
+            el.style.display = 'none';
+        }
+    });
+
+    const gameResult = getGameResultForUser(oResult.bjcard);
+    console.log('나의 승부 결과', gameResult) // TODO 상단 이미지
+
+    // 공통 메세지
+    resultmsg.innerText = oResult.msg;
+
+    if(oResult.winners) {
+        idarea.value = oResult.winners;
+        idarea.style.display = '';
+    }
+}
+
 const handleBroadcastReceived = (action, message, fromId) => {
     // 타이머 액션
-    if(action === TIMER) {
+    if(action === TIMER_BY_BJ) {
         // 초기에 한번만
         if(!isGameStart) {
             setWaitDisplay('show');
@@ -37,35 +87,15 @@ const handleBroadcastReceived = (action, message, fromId) => {
         }
     }
     // 게임 종료 액션
-    else if(action === END) {
-        showResult(message);
+    else if(action === END_BY_BJ) {
+        console.log('end가 들어오니')
+        showBjResult(message);
     }
 
-    console.log(action, message, fromId);
+    console.log('UserReceived', action, message, fromId);
 }
 
 extensionSdk.broadcast.listen(handleBroadcastReceived);
-
-const setDefaultDisplay = (action) => {
-    defaultClasses.forEach(function (el) {
-        el.style.display = action === 'show' ? '' : 'none';
-    });
-}
-
-const setWaitDisplay = (action) => {
-    waitClasses.forEach(function (el) {
-        el.style.display = action === 'show' ? '' : 'none';
-        gamecardClasses.forEach((el) => {
-            el.style.pointerEvents = action === 'show' ? 'auto' : 'none';
-        })
-    });
-}
-
-const setCompleteDisplay = (action) => {
-    completeClasses.forEach(function(el) {
-        el.style.display = action === 'show' ? '' : 'none';
-    });
-}
 
 const getGameResultForUser = (bjSelectCard) => {
     let gameResult = 'draw';
@@ -91,29 +121,6 @@ const getGameResultForUser = (bjSelectCard) => {
     }
 
     return gameResult;
-}
-
-const showResult = (oResult) => {
-    setWaitDisplay('hide');
-    setCompleteDisplay('show');
-
-    gamecardClasses.forEach(function (el) {
-        // BJ가 고른 카드만 보여주기
-        if (el.dataset.card !== bjcard) {
-            el.style.display = 'none';
-        }
-    });
-
-    const gameResult = getGameResultForUser(oResult.bjcard);
-    console.log('나의 승부 결과', gameResult) // TODO 상단 이미지
-
-    // 공통 메세지
-    resultmsg.innerText = oResult.msg;
-
-    if(oResult.winners) {
-        idarea.value = oResult.winners;
-        idarea.style.display = '';
-    }
 }
 
 // 게임카드 click
@@ -150,5 +157,5 @@ selectbtn.addEventListener('click', function () {
     console.log('select',userSelectCard);
 
     // BJ에게 선택한 카드 전송
-    extensionSdk.broadcast.send(SELECTCARD, userSelectCard);
+    extensionSdk.broadcast.send(SELECTCARD_BY_USER, userSelectCard);
 });

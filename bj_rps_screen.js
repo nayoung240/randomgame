@@ -1,8 +1,11 @@
 const SDK = window.AFREECA.ext;
 const extensionSdk = SDK();
-const TIMER = 'timer';
-const SELECTCARD = 'selectCard';
-const END = 'end';
+const TIMER_BY_USER = 'timer_user';
+const SELECTCARD_BY_USER = 'selectcard_user';
+const END_BY_USER = 'end_user';
+const TIMER_BY_BJ = 'timer_bj';
+const SELECTCARD_BY_BJ = 'selectcard_bj';
+const END_BY_BJ = 'end_bj';
 
 let bjSelectCard = ''; // BJ가 선택한 카드
 
@@ -52,10 +55,12 @@ const showResult = (allCnt, winCnt, winnerList) => {
         idarea.style.display = '';
     }
 
+    // 모든 유저에게 공통적인 게임결과 전송
+    extensionSdk.broadcast.send(END_BY_BJ, oResult);
+
     resultmsg.innerText = oResult.msg;
 
-    // 모든 유저에게 공통적인 게임결과 전송
-    extensionSdk.broadcast.send(END, oResult);
+    console.log('showResult',allCnt, winCnt, winnerList)
 }
 
 const getGameResultForUser = (userSelectCard) => {
@@ -84,52 +89,48 @@ const getGameResultForUser = (userSelectCard) => {
 }
 
 const extensionCall = () => {
-    let elapsedTime = 0;
     let timerCount = 5;
 
     // 모든 유저에게 타이머 전송
-    extensionSdk.broadcast.send(TIMER, timerCount);
+    extensionSdk.broadcast.send(TIMER_BY_BJ, timerCount);
+
+    let winnerList = [];
+    let allCnt = 0;
+    let winCnt = 0;
+
+    const handleBroadcastReceived = (action, message, fromId) => {
+        // 카드 선택 액션
+        if(action === SELECTCARD_BY_USER) {
+            // 유저랑 BJ의 가위바위보 비교
+            const userResult = getGameResultForUser(message);
+
+            // 이겼으면 추가
+            if(userResult == 'win') {
+                winnerList.push(fromId);
+                winCnt += 1;
+            }
+
+            allCnt += 1;
+        }
+
+        console.log('BjReceived', action, message, fromId);
+    }
+
+    extensionSdk.broadcast.listen(handleBroadcastReceived);
 
     const setIntervaltimer = setInterval(function () {
-        elapsedTime += 1000; // 1초씩 증가
         timerCount -= 1;
+        console.log('setIntervaltimer')
 
         // 모든 유저에게 타이머 전송
-        extensionSdk.broadcast.send(TIMER, timerCount);
-
-        // 타이머 종료
-        if (elapsedTime >= 5000) {
-            console.log('timer end')
-            clearInterval(setIntervaltimer);
-
-            let winnerList = [];
-            let allCnt = 0;
-            let winCnt = 0;
-
-            const handleBroadcastReceived = (action, message, fromId) => {
-                // 카드 선택 액션
-                if(action === SELECTCARD) {
-                    // 유저랑 BJ의 가위바위보 비교
-                    const userResult = getGameResultForUser(message);
-
-                    // 이겼으면 추가
-                    if(userResult == 'win') {
-                        winnerList.push(fromId);
-                        winCnt += 1;
-                    }
-
-                    allCnt += 1;
-                }
-        
-                console.log(action, message, fromId);
-            }
-        
-            extensionSdk.broadcast.listen(handleBroadcastReceived);
-
-            showResult(allCnt, winCnt, winnerList);
-            return;
-        }
+        extensionSdk.broadcast.send(TIMER_BY_BJ, timerCount);
     }, 1000); // 1초마다 실행
+
+    // 5초 후에 interval 중단하고 함수 호출
+    setTimeout(function() {
+        clearInterval(setIntervaltimer);
+        showResult(allCnt, winCnt, winnerList);
+    }, 5000);
 }
 
 // 게임카드 click
