@@ -30,6 +30,7 @@
         align-items: center;
         margin: 10px;
         cursor: pointer;
+        pointer-events: none;
     }
 
     .gamecard img {
@@ -76,13 +77,13 @@
 <main>
     <!-- 선택 시 class=cardselected 추가 -->
     <div class="d-flex justify-content-center">
-        <div class="gamecard rounded" data-card="scissors">
+        <div class="gamecard rounded" data-card="scissors" id="scissorsCard">
             <img src="./img/ex.png" alt="가위">
         </div>
-        <div class="gamecard rounded" data-card="rock">
+        <div class="gamecard rounded" data-card="rock" id="rockCard">
             <img src="./img/ex.png" alt="바위">
         </div>
-        <div class="gamecard rounded" data-card="paper">
+        <div class="gamecard rounded" data-card="paper" id="paperCard">
             <img src="./img/ex.png" alt="보">
         </div>
     </div>
