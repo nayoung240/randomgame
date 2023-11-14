@@ -1,3 +1,11 @@
+const SDK = window.AFREECA.ext;
+const extensionSdk = SDK();
+const TIMER = 'timer';
+const SELECTCARD = 'selectCard';
+const END = 'end';
+
+let bjSelectCard = ''; // BJ가 선택한 카드
+
 const selectbtn = document.querySelector('#selectbtn');
 const gamecardClasses = document.querySelectorAll('.gamecard');
 const resultmsg = document.querySelector('#resultmsg');
@@ -26,29 +34,107 @@ const setCompleteDisplay = (action) => {
     });
 }
 
-const showResult = () => {
+const showResult = (allCnt, winCnt, winnerList) => {
     setWaitDisplay('hide');
     setCompleteDisplay('show');
     
-    let msg = 'BJ가 모두를 이겼습니다!';
-    const winCnt = 10;
-    const allCnt = 100;
-    const winNicks = ['정보경','ababaabababa','손가을손가을','폭주중','정보경','이나영','손가을','폭주중','정보경','이나영','손가을','폭주중','정보경','이나영','손가을','폭주중','정보경','이나영','손가을','폭주중'];
+    let oResult = {
+        bjcard : bjSelectCard, // Bj가 선택한 카드
+        msg : 'BJ가 모두를 이겼습니다!',
+        winners : ''
+    };
 
     if(winCnt > 0) {
-        msg = `${allCnt}명중에 ${winCnt}명이 BJ를 이겼습니다!`;
-        idarea.value  = '<< 이긴 유저 >>\n'+winNicks.join('\n');
+        oResult.msg = `${allCnt}명중에 ${winCnt}명이 BJ를 이겼습니다!`;
+        oResult.winners = '<< 이긴 유저 >>\n'+winnerList.join('\n');
+
+        idarea.value = oResult.winners;
         idarea.style.display = '';
     }
 
-    resultmsg.innerText = msg;
+    resultmsg.innerText = oResult.msg;
+
+    // 모든 유저에게 공통적인 게임결과 전송
+    extensionSdk.broadcast.send(END, oResult);
+}
+
+const getGameResultForUser = (userSelectCard) => {
+    let gameResult = 'draw';
+
+    if (userSelectCard !== bjSelectCard) {
+        if (userSelectCard === 'scissors') {
+            gameResult = 'lose';
+            if (bjSelectCard === 'paper') {
+                gameResult = 'win';
+            }
+        } else if (userSelectCard === 'rock') {
+            gameResult = 'lose';
+            if (bjSelectCard === 'scissors') {
+                gameResult = 'win';
+            }
+        } else if (userSelectCard === 'paper') {
+            gameResult = 'lose';
+            if (bjSelectCard === 'rock') {
+                gameResult = 'win';
+            }
+        }
+    }
+
+    return gameResult;
+}
+
+const extensionCall = () => {
+    let elapsedTime = 0;
+    let timerCount = 5;
+
+    // 모든 유저에게 타이머 전송
+    extensionSdk.broadcast.send(TIMER, timerCount);
+
+    const setIntervaltimer = setInterval(function () {
+        elapsedTime += 1000; // 1초씩 증가
+        timerCount -= 1;
+
+        // 모든 유저에게 타이머 전송
+        extensionSdk.broadcast.send(TIMER, timerCount);
+
+        // 타이머 종료
+        if (elapsedTime >= 5000) {
+            console.log('timer end')
+            clearInterval(setIntervaltimer);
+
+            let winnerList = [];
+            let allCnt = 0;
+            let winCnt = 0;
+
+            const handleBroadcastReceived = (action, message, fromId) => {
+                // 카드 선택 액션
+                if(action === SELECTCARD) {
+                    // 유저랑 BJ의 가위바위보 비교
+                    const userResult = getGameResultForUser(message);
+
+                    // 이겼으면 추가
+                    if(userResult == 'win') {
+                        winnerList.push(fromId);
+                        winCnt += 1;
+                    }
+
+                    allCnt += 1;
+                }
+        
+                console.log(action, message, fromId);
+            }
+        
+            extensionSdk.broadcast.listen(handleBroadcastReceived);
+
+            showResult(allCnt, winCnt, winnerList);
+            return;
+        }
+    }, 1000); // 1초마다 실행
 }
 
 // 게임카드 click
 gamecardClasses.forEach((target) => target.addEventListener("click", function(e){ 
     const cardselected = document.querySelector('.cardselected');
-    const cardData = target.dataset.card;
-    console.log(cardData);
 
     // 기존 선택된거 지우기
     if(cardselected) {
@@ -76,6 +162,9 @@ selectbtn.addEventListener('click', function() {
         return; // 종료
     }
 
+    bjSelectCard = cardselected.dataset.card;
+    console.log('select',bjSelectCard);
+
     gamecardClasses.forEach(function(el) {
         if(!el.classList.contains('cardselected')) {
             el.style.display = 'none';
@@ -85,17 +174,6 @@ selectbtn.addEventListener('click', function() {
     setWaitDisplay('show');
     setDefaultDisplay('hide');
 
-    let elapsedTime = 0;
-
-    const setIntervaltimer = setInterval(function () {
-        elapsedTime += 1000; // 1초씩 증가
-
-        // 타이머 종료
-        if (elapsedTime >= 5000) {
-            console.log('end')
-            clearInterval(setIntervaltimer);
-            showResult();
-            return;
-        }
-    }, 1000); // 1초마다 실행
+    // 통신 시작
+    extensionCall();
 });
