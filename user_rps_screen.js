@@ -46,12 +46,16 @@ const showResult = () => {
     });
 
     let gameResult = '';
-    const usrCardId = cardSelected.id;
+    const usrCardId = cardSelected ? cardSelected.id : '';
     const bjCardId = 'rockCard';    // TODO. 유저가 선택한 카드 아이디 받아와야 함
+
     if (usrCardId === bjCardId) {
         gameResult = 'draw';
     } else {
-        if (usrCardId === 'scissorsCard') {
+        if (!usrCardId) {
+            gameResult = 'lose';
+        }
+        else if (usrCardId === 'scissorsCard') {
             gameResult = 'lose';
             if (bjCardId === 'paperCard') {
                 gameResult = 'win';
