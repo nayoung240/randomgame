@@ -38,6 +38,10 @@
         height: 100px;
     }
 
+    .gamecard img:hover {
+        transform: translateY(-20px);
+    }
+
     .cardselected[data-card="scissors"] {
         background-color: #FFF08E;
     }
@@ -53,12 +57,17 @@
         width: 300px;
         background-color: #F6EDF8;
     }
+
+    .step_title {
+        color: #FFBD59;
+    }
+
 </style>
 <body>
 <header class="text-center">
     <!-- 1. 초기 화면 -->
     <div class="default">
-        <h1>BJ가<br>가위바위보 고르는중...</h1>
+        <h1 class="step_title">BJ가<br>가위바위보 고르는중...</h1>
         <p>&lt; 카운트다운이 시작되면 선택해주세요 &gt;</p>
 <!--        <div class="spinner-grow spinner-grow-sm text-light" role="status"><span class="visually-hidden">L1.</span></div>-->
 <!--        <div class="spinner-grow spinner-grow-sm text-light" role="status"><span class="visually-hibdden">Loading...</span></div>-->
@@ -73,7 +82,7 @@
     <!-- 3.결과 화면 -->
     <div class="complete" style="display: none;">
         <img id="resultImg" src="./img/draw.png">
-        <h4 class="text-warning">BJ의 선택!</h4>
+        <h4 class="step_title">BJ의 선택!</h4>
     </div>
 </header>
 <main>
