@@ -6,15 +6,16 @@ const END_BY_USER = 'end_user';
 const TIMER_BY_BJ = 'timer_bj';
 const SELECTCARD_BY_BJ = 'selectcard_bj';
 const END_BY_BJ = 'end_bj';
+const WIN_IMAGE = 'thumb-up.png';
+const LOSE_IMAGE = 'thumb-down.png';
+const DRAW_IMAGE = 'draw.png';
+const IMG_DIRECTORY = './img/';
 
 const selectbtn = document.querySelector('#selectbtn');
 const gamecardClasses = document.querySelectorAll('.gamecard');
 const resultmsg = document.querySelector('#resultmsg');
+const resultImg = document.querySelector('#resultImg');
 const idarea = document.querySelector('#idarea');
-
-const scissorsCard = document.querySelector('#scissorsCard');
-const rockCard = document.querySelector('#rockCard');
-const paperCard = document.querySelector('#paperCard');
 
 // UI : default -> wait -> complete
 const defaultClasses = document.querySelectorAll('.default');
@@ -60,8 +61,9 @@ const showBjResult = (oResult) => {
         }
     });
 
-    const gameResult = getGameResultForUser(oResult.bjcard);
-    console.log('나의 승부 결과', gameResult) // TODO 상단 이미지
+    const gameResultImg = getGameResultForUser(oResult.bjcard);
+    console.log('나의 승부 결과', gameResult);
+    resultImg.src = IMG_DIRECTORY + gameResultImg;
 
     // 공통 메세지
     resultmsg.innerText = oResult.msg;
@@ -98,24 +100,24 @@ const handleBroadcastReceived = (action, message, fromId) => {
 extensionSdk.broadcast.listen(handleBroadcastReceived);
 
 const getGameResultForUser = (bjSelectCard) => {
-    let gameResult = 'draw';
+    let gameResult = DRAW_IMAGE;
 
     // 유저가 게임에 참여했다는 전제
     if (userSelectCard && (userSelectCard !== bjSelectCard)) {
         if (userSelectCard === 'scissors') {
-            gameResult = 'lose';
+            gameResult = LOSE_IMAGE;
             if (bjSelectCard === 'paper') {
-                gameResult = 'win';
+                gameResult = WIN_IMAGE;
             }
         } else if (userSelectCard === 'rock') {
-            gameResult = 'lose';
+            gameResult = LOSE_IMAGE;
             if (bjSelectCard === 'scissors') {
-                gameResult = 'win';
+                gameResult = WIN_IMAGE;
             }
         } else if (userSelectCard === 'paper') {
-            gameResult = 'lose';
+            gameResult = LOSE_IMAGE;
             if (bjSelectCard === 'rock') {
-                gameResult = 'win';
+                gameResult = WIN_IMAGE;
             }
         }
     }
