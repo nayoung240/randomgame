@@ -3,6 +3,7 @@ const extensionSdk = SDK();
 const TIMER_BY_USER = 'timer_user';
 const SELECTCARD_BY_USER = 'selectcard_user';
 const END_BY_USER = 'end_user';
+const TIMERSTART_BY_BJ = 'timerstart_bj';
 const TIMER_BY_BJ = 'timer_bj';
 const SELECTCARD_BY_BJ = 'selectcard_bj';
 const END_BY_BJ = 'end_bj';
@@ -11,27 +12,26 @@ let bjSelectCard = ''; // BJ가 선택한 카드
 
 const selectbtn = document.querySelector('#selectbtn');
 const gamecardClasses = document.querySelectorAll('.gamecard');
-const resultmsg = document.querySelector('#resultmsg');
-const idarea = document.querySelector('#idarea');
-
-// UI : default -> wait -> complete
-const defaultClasses = document.querySelectorAll('.default');
-const waitClasses = document.querySelectorAll('.wait');
-const completeClasses = document.querySelectorAll('.complete');
 
 const setDefaultDisplay = (action) => {
+    const defaultClasses = document.querySelectorAll('.default');
+
     defaultClasses.forEach(function(el) {
         el.style.display = action === 'show' ? '' : 'none';
     });
 }
 
 const setWaitDisplay = (action) => {
+    const waitClasses = document.querySelectorAll('.wait');
+
     waitClasses.forEach(function(el) {
         el.style.display = action === 'show' ? '' : 'none';
     });
 }
 
 const setCompleteDisplay = (action) => {
+    const completeClasses = document.querySelectorAll('.complete');
+
     completeClasses.forEach(function(el) {
         el.style.display = action === 'show' ? '' : 'none';
     });
@@ -41,8 +41,9 @@ const showResult = (allCnt, winCnt, winnerList) => {
     setWaitDisplay('hide');
     setCompleteDisplay('show');
     
+    const resultmsg = document.querySelector('#resultmsg');
+    const idarea = document.querySelector('#idarea');
     let oResult = {
-        bjcard : bjSelectCard, // Bj가 선택한 카드
         msg : 'BJ가 모두를 이겼습니다!',
         winners : ''
     };
@@ -63,36 +64,11 @@ const showResult = (allCnt, winCnt, winnerList) => {
     console.log('showResult',allCnt, winCnt, winnerList)
 }
 
-const getGameResultForUser = (userSelectCard) => {
-    let gameResult = 'draw';
-
-    if (userSelectCard !== bjSelectCard) {
-        if (userSelectCard === 'scissors') {
-            gameResult = 'lose';
-            if (bjSelectCard === 'paper') {
-                gameResult = 'win';
-            }
-        } else if (userSelectCard === 'rock') {
-            gameResult = 'lose';
-            if (bjSelectCard === 'scissors') {
-                gameResult = 'win';
-            }
-        } else if (userSelectCard === 'paper') {
-            gameResult = 'lose';
-            if (bjSelectCard === 'rock') {
-                gameResult = 'win';
-            }
-        }
-    }
-
-    return gameResult;
-}
-
 const extensionCall = () => {
     let timerCount = 5;
 
-    // 모든 유저에게 타이머 전송
-    extensionSdk.broadcast.send(TIMER_BY_BJ, timerCount);
+    // 모든 유저에게 타이머 시작, BJ가 선택한 카드 전송
+    extensionSdk.broadcast.send(TIMERSTART_BY_BJ, bjSelectCard);
 
     let winnerList = [];
     let allCnt = 0;
@@ -101,11 +77,8 @@ const extensionCall = () => {
     const handleBroadcastReceived = (action, message, fromId) => {
         // 카드 선택 액션
         if(action === SELECTCARD_BY_USER) {
-            // 유저랑 BJ의 가위바위보 비교
-            const userResult = getGameResultForUser(message);
-
-            // 이겼으면 추가
-            if(userResult == 'win') {
+            // 이긴 유저인 경우 목록에 추가
+            if(message == 'win') {
                 winnerList.push(fromId);
                 winCnt += 1;
             }
