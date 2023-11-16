@@ -65,7 +65,7 @@ const showResult = (allCnt, winCnt, winnerList) => {
 
     resultmsg.innerText = oResult.msg;
 
-    console.log('showResult',allCnt, winCnt, winnerList)
+    console.log('showResult',oResult)
 }
 
 const extensionCall = () => {
@@ -104,10 +104,10 @@ const extensionCall = () => {
     }, 1000); // 1초마다 실행
 
     // 5초 후에 interval 중단하고 함수 호출
-    setTimeout(function() {
+    new Promise(resolve => setTimeout(resolve, 5000)).then(() => {
         clearInterval(setIntervaltimer);
         showResult(allCnt, winCnt, winnerList);
-    }, 5000);
+    });
 }
 
 // 게임카드 click
