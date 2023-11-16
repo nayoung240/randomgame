@@ -7,18 +7,15 @@ const TIMERSTART_BY_BJ = 'timerstart_bj';
 const TIMER_BY_BJ = 'timer_bj';
 const SELECTCARD_BY_BJ = 'selectcard_bj';
 const END_BY_BJ = 'end_bj';
-const WIN_IMAGE = 'thumb-up.png';
-const LOSE_IMAGE = 'thumb-down.png';
-const DRAW_IMAGE = 'draw.png';
-const IMG_DIRECTORY = './img/';
+const IMG_DIRECTORY = './img/rps/';
 
 const selectbtn = document.querySelector('#selectbtn');
+const cntImg = document.querySelector('#cntImg');
 const gamecardClasses = document.querySelectorAll('.gamecard');
 
 let bjSelectCard = ''; // BJ가 선택한 카드
 let userSelectCard = ''; // 유저가 선택한 카드
 let gameResult = ''; // 게임 결과
-const elapsedImg = ['img1', 'img2', 'img3', 'img4', 'img5'];
 
 const setDefaultDisplay = (action) => {
     const defaultClasses = document.querySelectorAll('.default');
@@ -65,7 +62,7 @@ const showBjResult = (oResult) => {
         }
     });
 
-    resultImg.src = IMG_DIRECTORY + gameResult;
+    resultImg.src = IMG_DIRECTORY + gameResult + '.png';
 
     // 공통 메세지
     resultmsg.innerText = oResult.msg;
@@ -84,12 +81,12 @@ const handleBroadcastReceived = (action, message, fromId) => {
 
         // BJ가 선택한 카드 저장
         bjSelectCard = message;
-
-        console.log(elapsedImg.pop());    // 카운트 이미지 출력
     }
     // 이후 타이머 액션
     else if(action === TIMER_BY_BJ) {
-        console.log(elapsedImg.pop());    // 카운트 이미지 출력
+        if(message) {
+            cntImg.src = IMG_DIRECTORY + message + '.png';
+        }
     }
     // 게임 종료 액션
     else if(action === END_BY_BJ) {
@@ -103,24 +100,24 @@ const handleBroadcastReceived = (action, message, fromId) => {
 extensionSdk.broadcast.listen(handleBroadcastReceived);
 
 const getGameResultForUser = () => {
-    let gameResult = DRAW_IMAGE;
+    let gameResult = 'draw';
 
     // 유저가 게임에 참여했다는 전제
     if (userSelectCard && (userSelectCard !== bjSelectCard)) {
         if (userSelectCard === 'scissors') {
-            gameResult = LOSE_IMAGE;
+            gameResult = 'lose';
             if (bjSelectCard === 'paper') {
-                gameResult = WIN_IMAGE;
+                gameResult = 'win';
             }
         } else if (userSelectCard === 'rock') {
-            gameResult = LOSE_IMAGE;
+            gameResult = 'lose';
             if (bjSelectCard === 'scissors') {
-                gameResult = WIN_IMAGE;
+                gameResult = 'win';
             }
         } else if (userSelectCard === 'paper') {
-            gameResult = LOSE_IMAGE;
+            gameResult = 'lose';
             if (bjSelectCard === 'rock') {
-                gameResult = WIN_IMAGE;
+                gameResult = 'win';
             }
         }
     }
@@ -130,6 +127,11 @@ const getGameResultForUser = () => {
 
 // 게임카드 click
 gamecardClasses.forEach((target) => target.addEventListener("click", function (e) {
+    // 선택하기 완료한 경우
+    if(selectbtn.classList.contains('disabled')) {
+        return;
+    }
+
     const cardselected = document.querySelector('.cardselected');
 
     // 기존 선택된거 지우기
@@ -166,4 +168,7 @@ selectbtn.addEventListener('click', function () {
 
     // BJ에게 승부 결과 전송
     extensionSdk.broadcast.send(SELECTCARD_BY_USER, gameResult);
+
+    // 선택하기 비활성화
+    selectbtn.classList.add('disabled');
 });
