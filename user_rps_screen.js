@@ -1,5 +1,7 @@
 const SDK = window.AFREECA.ext;
 const extensionSdk = SDK();
+
+const START_GAME = 'start_game';
 const TIMER_BY_USER = 'timer_user';
 const SELECTCARD_BY_USER = 'selectcard_user';
 const END_BY_USER = 'end_user';
@@ -16,6 +18,41 @@ const gamecardClasses = document.querySelectorAll('.gamecard');
 let bjSelectCard = ''; // BJ가 선택한 카드
 let userSelectCard = ''; // 유저가 선택한 카드
 let gameResult = ''; // 게임 결과
+
+const handleBroadcastReceived = (action, message, fromId) => {
+    // 게임 시작 액션
+    if(action === START_GAME) {
+        if(message == 'main') {
+            window.location = 'user_screen.html';
+        }
+        else if(message == 'rps') {
+            window.location = 'user_rps_screen.html';
+        }
+    }
+    // 초기 타이머 액션
+    else if(action === TIMERSTART_BY_BJ) {
+        setWaitDisplay('show');
+        setDefaultDisplay('hide');
+
+        // BJ가 선택한 카드 저장
+        bjSelectCard = message;
+    }
+    // 이후 타이머 액션
+    else if(action === TIMER_BY_BJ) {
+        if(message) {
+            cntImg.src = IMG_DIRECTORY + message + '.png';
+        }
+    }
+    // 게임 종료 액션
+    else if(action === END_BY_BJ) {
+        console.log('end가 들어오니')
+        showBjResult(message);
+    }
+
+    console.log('UserReceived', action, message, fromId);
+}
+
+extensionSdk.broadcast.listen(handleBroadcastReceived);
 
 const setDefaultDisplay = (action) => {
     const defaultClasses = document.querySelectorAll('.default');
@@ -72,32 +109,6 @@ const showBjResult = (oResult) => {
         idarea.style.display = '';
     }
 }
-
-const handleBroadcastReceived = (action, message, fromId) => {
-    // 초기 타이머 액션
-    if(action === TIMERSTART_BY_BJ) {
-        setWaitDisplay('show');
-        setDefaultDisplay('hide');
-
-        // BJ가 선택한 카드 저장
-        bjSelectCard = message;
-    }
-    // 이후 타이머 액션
-    else if(action === TIMER_BY_BJ) {
-        if(message) {
-            cntImg.src = IMG_DIRECTORY + message + '.png';
-        }
-    }
-    // 게임 종료 액션
-    else if(action === END_BY_BJ) {
-        console.log('end가 들어오니')
-        showBjResult(message);
-    }
-
-    console.log('UserReceived', action, message, fromId);
-}
-
-extensionSdk.broadcast.listen(handleBroadcastReceived);
 
 const getGameResultForUser = () => {
     let gameResult = 'draw';

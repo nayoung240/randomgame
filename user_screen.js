@@ -7,7 +7,21 @@ const rpslogo = document.querySelector('#rpslogo');
 const whlogo = document.querySelector('#whlogo');
 const backbtn = document.querySelector('#backbtn');
 
-extensionSdk.broadcast.send(START_GAME, 'main');
+const handleBroadcastReceived = (action, message, fromId) => {
+    // 게임 시작 액션
+    if(action === START_GAME) {
+        if(message == 'main') {
+            window.location = 'user_screen.html';
+        }
+        else if(message == 'rps') {
+            window.location = 'user_rps_screen.html';
+        }
+    }
+
+    console.log('userscreen', action, message, fromId);
+}
+
+extensionSdk.broadcast.listen(handleBroadcastReceived);
 
 const setDefaultDisplay = (action) => {
     const defaultClasses = document.querySelectorAll('.default');

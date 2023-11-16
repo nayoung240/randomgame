@@ -1,5 +1,7 @@
 const SDK = window.AFREECA.ext;
 const extensionSdk = SDK();
+
+const START_GAME = 'start_game';
 const TIMER_BY_USER = 'timer_user';
 const SELECTCARD_BY_USER = 'selectcard_user';
 const END_BY_USER = 'end_user';
@@ -12,6 +14,8 @@ let bjSelectCard = ''; // BJ가 선택한 카드
 
 const selectbtn = document.querySelector('#selectbtn');
 const gamecardClasses = document.querySelectorAll('.gamecard');
+
+extensionSdk.broadcast.send(START_GAME, 'rps');
 
 const setDefaultDisplay = (action) => {
     const defaultClasses = document.querySelectorAll('.default');
