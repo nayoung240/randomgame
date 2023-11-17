@@ -5,6 +5,7 @@ const START_GAME = 'start_game';
 
 const rpslogo = document.querySelector('#rpslogo');
 const whlogo = document.querySelector('#whlogo');
+const ladderlogo = document.querySelector('#ladderlogo');
 const backbtn = document.querySelector('#backbtn');
 
 extensionSdk.broadcast.send(START_GAME, 'main');
@@ -33,20 +34,56 @@ const set5w1hDisplay = (action) => {
     });
 }
 
+const setLadderDisplay = (action) => {
+    const ladderClasses = document.querySelectorAll('.ladder');
+
+    ladderClasses.forEach(function(el) {
+        el.style.display = action === 'show' ? '' : 'none';
+    });
+}
+
+const showGuide = (guide) => {
+    let defaultDisplay = 'hide';
+    let rpsDisplay = 'hide';
+    let whDisplay = 'hide';
+    let ladderDisplay = 'hide';
+
+    switch (guide) {
+        case 'rps':
+            rpsDisplay = 'show';
+            break;
+        case 'wh':
+            whDisplay = 'show';
+            break;
+        case 'ladder':
+            ladderDisplay = 'show';
+            break;
+        default:
+            defaultDisplay = 'show';
+            break;
+    }
+
+    setDefaultDisplay(defaultDisplay);
+    setRpsDisplay(rpsDisplay);
+    set5w1hDisplay(whDisplay);
+    setLadderDisplay(ladderDisplay);
+
+    backbtn.style.display = '';
+}
+
 // 안내면진다 안내
 rpslogo.addEventListener('click', function() {
-    setDefaultDisplay('hide');
-    setRpsDisplay('show');
-    set5w1hDisplay('hide');
-    backbtn.style.display = '';
+    showGuide('rps');
 });
 
 // 6하원칙 안내
 whlogo.addEventListener('click', function() {
-    setDefaultDisplay('hide');
-    setRpsDisplay('hide');
-    set5w1hDisplay('show');
-    backbtn.style.display = '';
+    showGuide('wh');
+});
+
+// 사다리 안내
+ladderlogo.addEventListener('click', function() {
+    showGuide('ladder');
 });
 
 // 뒤로가기 버튼
