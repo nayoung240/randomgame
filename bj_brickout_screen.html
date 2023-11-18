@@ -23,7 +23,7 @@
     var rightPressed = false;
     var leftPressed = false;
     var brickRowCount = 5;
-    var brickColumnCount = 3;
+    var brickColumnCount = 1;
     var brickWidth = 75;
     var brickHeight = 20;
     var brickPadding = 10;
@@ -31,6 +31,7 @@
     var brickOffsetLeft = 30;
     var score = 0;
     var lives = 3;
+    let scoreSum = brickRowCount*brickColumnCount;
 
     var bricks = [];
     for(var c=0; c<brickColumnCount; c++) {
@@ -71,8 +72,18 @@
                         dy = -dy;
                         b.status = 0;
                         score++;
-                        if(score == brickRowCount*brickColumnCount) {
-                            document.location.reload();
+                        if(score == scoreSum) {
+                            brickColumnCount += 1;
+                            scoreSum += brickColumnCount*brickRowCount;
+                            for(var c=0; c<brickColumnCount; c++) {
+                                bricks[c] = [];
+                                for(var r=0; r<brickRowCount; r++) {
+                                    bricks[c][r] = { x: 0, y: 0, status: 1 };
+                                }
+                            }
+                            x=240;
+                            y=290;
+                            requestAnimationFrame(draw);
                         }
                     }
                 }
