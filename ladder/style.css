@@ -30,9 +30,11 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
     display: block;
 }
+
 body {
-    line-height: 1;
+    padding: 10px;
 }
+
 ol, ul {
     list-style: none;
 }
@@ -187,7 +189,7 @@ html, body{
   }
   
   .button.green {
-    background-color: #e3a84f;
+    background-color: #f58bcb;
     color: #fff;
   }
   
@@ -315,4 +317,11 @@ input:focus ~ .highlight {
     text-align: center;
     font-size: 13px;
     margin-top: 15px;
+}
+
+#backbtn {
+    width: 20px;
+    margin-left: 20px;
+    cursor: pointer;
+    filter: invert(95%) sepia(0%) saturate(1122%) hue-rotate(214deg) brightness(79%) contrast(71%);
 }

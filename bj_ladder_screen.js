@@ -1,4 +1,8 @@
 $(function(){
+    const SDK = window.AFREECA.ext;
+    const extensionSdk = SDK();
+    const START_GAME = 'start_game';
+
     let heightNode = 10;
     let widthNode =  0;
 
@@ -11,6 +15,8 @@ $(function(){
     let working = false;
 
     let userName = "";
+
+    extensionSdk.broadcast.send(START_GAME, 'main');
 
     function init(){
         canvasDraw();
@@ -39,7 +45,7 @@ $(function(){
 
     function canvasDraw(){
         $('html').scrollTop(0);
-        
+
         ladder.css({
             'width' :( widthNode-1) * 100 + 6,
             'height' : (heightNode -1 ) * 25 + 6,
@@ -58,6 +64,11 @@ $(function(){
         userSetting();
         resultSetting();
     }
+
+    // 새로고침 버튼
+    $(document).on('click', '#backbtn', function(e){
+        location.reload();
+    })
 
     $(document).on('click', 'button.ladder-start', function(e){
         if(working){
