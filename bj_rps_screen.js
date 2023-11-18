@@ -62,9 +62,11 @@ const showResult = (allCnt, winCnt, winnerList) => {
 
     // 모든 유저에게 공통적인 게임결과 전송
     extensionSdk.broadcast.send(END_BY_BJ, oResult);
+    extensionSdk.broadcast.send(END_BY_BJ, 'aaa');
+    extensionSdk.broadcast.send(END_BY_BJ, oResult);
 
     resultmsg.innerText = oResult.msg;
-
+//debugger;
     console.log('showResult',oResult)
 }
 
