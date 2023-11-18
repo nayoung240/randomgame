@@ -6,6 +6,7 @@ const START_GAME = 'start_game';
 const rpslogo = document.querySelector('#rpslogo');
 const whlogo = document.querySelector('#whlogo');
 const ladderlogo = document.querySelector('#ladderlogo');
+const bricklogo = document.querySelector('#bricklogo');
 const backbtn = document.querySelector('#backbtn');
 
 extensionSdk.broadcast.send(START_GAME, 'main');
@@ -42,11 +43,20 @@ const setLadderDisplay = (action) => {
     });
 }
 
+const setBrickDisplay = (action) => {
+    const brickClasses = document.querySelectorAll('.brick');
+
+    brickClasses.forEach(function(el) {
+        el.style.display = action === 'show' ? '' : 'none';
+    });
+}
+
 const showGuide = (guide) => {
     let defaultDisplay = 'hide';
     let rpsDisplay = 'hide';
     let whDisplay = 'hide';
     let ladderDisplay = 'hide';
+    let brickDisplay = 'hide';
 
     switch (guide) {
         case 'rps':
@@ -58,6 +68,9 @@ const showGuide = (guide) => {
         case 'ladder':
             ladderDisplay = 'show';
             break;
+        case 'brick':
+            brickDisplay = 'show';
+            break;
         default:
             defaultDisplay = 'show';
             break;
@@ -67,6 +80,8 @@ const showGuide = (guide) => {
     setRpsDisplay(rpsDisplay);
     set5w1hDisplay(whDisplay);
     setLadderDisplay(ladderDisplay);
+    setBrickDisplay(brickDisplay);
+    
 
     backbtn.style.display = '';
 }
@@ -84,6 +99,11 @@ whlogo.addEventListener('click', function() {
 // 사다리 안내
 ladderlogo.addEventListener('click', function() {
     showGuide('ladder');
+});
+
+//벽돌깨기 안내
+bricklogo.addEventListener('click', function() {
+    showGuide('brick');
 });
 
 // 뒤로가기 버튼
