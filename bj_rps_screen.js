@@ -13,6 +13,8 @@ const END_BY_BJ = 'end_bj';
 let bjSelectCard = ''; // BJ가 선택한 카드
 
 const selectbtn = document.querySelector('#selectbtn');
+const homebtn = document.querySelector('#homebtn');
+const backbtn = document.querySelector('#backbtn');
 const gamecardClasses = document.querySelectorAll('.gamecard');
 
 extensionSdk.broadcast.send(START_GAME, 'rps');
@@ -44,7 +46,7 @@ const setCompleteDisplay = (action) => {
 const showResult = (allCnt, winCnt, winnerList) => {
     setWaitDisplay('hide');
     setCompleteDisplay('show');
-    
+
     const resultmsg = document.querySelector('#resultmsg');
     const idarea = document.querySelector('#idarea');
     let oResult = {
@@ -111,7 +113,7 @@ const extensionCall = () => {
 }
 
 // 게임카드 click
-gamecardClasses.forEach((target) => target.addEventListener("click", function(e){ 
+gamecardClasses.forEach((target) => target.addEventListener("click", function(e){
     const cardselected = document.querySelector('.cardselected');
 
     // 기존 선택된거 지우기
@@ -135,7 +137,7 @@ selectbtn.addEventListener('click', function() {
         toastList.forEach(toast => {
             toastBody.innerText = '카드를 선택해야 합니다!';
             toast.show();
-        }) 
+        })
 
         return; // 종료
     }
@@ -154,4 +156,12 @@ selectbtn.addEventListener('click', function() {
 
     // 통신 시작
     extensionCall();
+});
+
+homebtn.addEventListener('click', function() {
+    window.location.replace('bj_screen.html');
+});
+
+backbtn.addEventListener('click', function() {
+    window.location.replace('bj_rps_screen.html');
 });
