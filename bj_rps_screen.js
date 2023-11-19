@@ -15,6 +15,7 @@ let bjSelectCard = ''; // BJ가 선택한 카드
 const selectbtn = document.querySelector('#selectbtn');
 const homebtn = document.querySelector('#homebtn');
 const backbtn = document.querySelector('#backbtn');
+const gohomebtn = document.querySelector('#gohomebtn');
 const gamecardClasses = document.querySelectorAll('.gamecard');
 
 extensionSdk.broadcast.send(START_GAME, 'rps');
@@ -161,6 +162,10 @@ selectbtn.addEventListener('click', function() {
 });
 
 homebtn.addEventListener('click', function() {
+    window.location.replace('bj_screen.html');
+});
+
+gohomebtn.addEventListener('click', function() {
     window.location.replace('bj_screen.html');
 });
 
