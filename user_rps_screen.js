@@ -69,8 +69,6 @@ const showHeaderResult = () => {
 }
 
 const showUserList = (oResult) => {
-    console.log('show',oResult);
-
     const resultmsg = document.querySelector('#resultmsg');
     const idarea = document.querySelector('#idarea');
 
@@ -145,10 +143,9 @@ selectbtn.addEventListener('click', function () {
     }
 
     userSelectCard = cardselected.dataset.card;
-    console.log('select',userSelectCard);
 
     gameResult = getGameResultForUser();
-    console.log('나의 승부 결과', gameResult);
+    // console.log('나의 승부 결과', gameResult);
 
     // BJ에게 승부 결과 전송
     extensionSdk.broadcast.send(SELECTCARD_BY_USER, gameResult);
@@ -186,12 +183,11 @@ const handleBroadcastReceived = (action, message, fromId) => {
     }
     // 게임 종료 액션
     else if(action === END_BY_BJ) {
-        console.log('end가 들어오니')
         showHeaderResult();
         showUserList(message);
     }
 
-    console.log('UserReceived', action, message, fromId);
+    // console.log('UserReceived', action, message, fromId);
 }
 
 extensionSdk.broadcast.listen(handleBroadcastReceived);

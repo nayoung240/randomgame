@@ -63,14 +63,9 @@ const showResult = (allCnt, winCnt, winnerList) => {
         idarea.style.display = '';
     }
 
-    // 모든 유저에게 공통적인 게임결과 전송
+    // 모든 유저에게 공통적인 게임결과 전송 (TODO 외부장치 방송 시 가능한데 프릭샷 방송시 전송이 안됨..)
     extensionSdk.broadcast.send(END_BY_BJ, oResult);
-    extensionSdk.broadcast.send(END_BY_BJ, 'aaa');
-    extensionSdk.broadcast.send(END_BY_BJ, oResult);
-
     resultmsg.innerText = oResult.msg;
-//debugger;
-    console.log('showResult',oResult)
 }
 
 const extensionCall = () => {
@@ -95,7 +90,7 @@ const extensionCall = () => {
             allCnt += 1;
         }
 
-        console.log('BjReceived', action, message, fromId);
+        // console.log('BjReceived', action, message, fromId);
     }
 
     extensionSdk.broadcast.listen(handleBroadcastReceived);
@@ -146,7 +141,6 @@ selectbtn.addEventListener('click', function() {
     }
 
     bjSelectCard = cardselected.dataset.card;
-    console.log('select',bjSelectCard);
 
     gamecardClasses.forEach(function(el) {
         if(!el.classList.contains('cardselected')) {
