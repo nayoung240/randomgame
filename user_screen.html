@@ -22,19 +22,12 @@
     }
 
     h1 {
-        color : #FFBD59;
+        color: #FFBD59;
     }
 
     .gamelogo img {
-        cursor: pointer;
         margin: 10px;
         width: 100px;
-    }
-
-    .gamelogo img:hover {
-        -ms-transform: rotate(60deg);
-        -webkit-transform: rotate(60deg);
-        transform: rotate(60deg);
     }
 
     #backbtn {
@@ -45,52 +38,59 @@
 
 </style>
 <body>
-    <header class="text-center">
-        <div class="d-flex align-items-start" >
-<!--            <img id="backbtn" src="./img/go-back-arrow.png" alt="뒤로가기" style="display: none;">-->
-        </div>
-        <!-- 초기 -->
-        <div class="default">
-            <h1>MINI GAME</h1>
-            <p>&lt; 게임을 선택해주세요 &gt;</p>
-        </div>
-        <!-- 가위바위보 -->
-        <div class="rps" style="display: none;">
-            <h1>안내면 진다!</h1>
-            <p>&lt; BJ를 이겨라 &gt;</p>
-        </div>
-        <!-- 육하원칙 -->
-        <div class="wh" style="display: none;">
-            <h1>6하원칙</h1>
-            <p>&lt; 누가, 언제, 어디서, 무엇을, 어떻게, 왜 &gt;</p>
-        </div>
-    </header>
-    <main class="text-center">
-        <!-- 초기 -->
-        <div class="default">
-            <div class="d-flex justify-content-center">
-                <div class="gamelogo" id="rpslogo">
-                    <img src="./img/main/rpslogo.png" alt="안내면 진다">
-                    <p>&lt; 안내면 진다 &gt;</p>
-                </div>
-                <div class="gamelogo" id="whlogo">
-                    <img src="./img/main/rpslogo.png" alt="6하원칙">
-                    <p>&lt; 6하원칙 &gt;</p>
-                </div>
+<header class="text-center">
+    <div class="default">
+        <h1>MINI GAME</h1>
+        <p>&lt; 게임을 선택해주세요 &gt;</p>
+    </div>
+    <!-- 가위바위보 -->
+    <div class="rps" style="display: none;">
+        <h1>안내면 진다!</h1>
+        <p>&lt; BJ를 이겨라 &gt;</p>
+    </div>
+    <!-- 육하원칙 -->
+    <div class="wh" style="display: none;">
+        <h1>6하원칙</h1>
+        <p>&lt; 누가, 언제, 어디서, 무엇을, 어떻게, 왜 &gt;</p>
+    </div>
+</header>
+<main class="text-center">
+    <!-- 초기 -->
+    <div class="default">
+        <div class="d-flex justify-content-center">
+            <div class="gamelogo" id="rpslogo">
+                <img src="./img/main/rpslogo.png" alt="안내면 진다">
+                <p>&lt; 안내면 진다 &gt;</p>
+            </div>
+            <div class="gamelogo" id="whlogo">
+                <img src="./img/main/5w1hlogo.png" alt="6하원칙">
+                <p>&lt; 6하원칙 &gt;</p>
             </div>
         </div>
-        <!-- 가위바위보 -->
-        <div class="rps" style="display: none;">
-            <p>BJ와 유저가 함께하는 가위, 바위, 보<br>카드를 선택해서 BJ를 이겨보세요</p>
+        <div class="d-flex justify-content-center">
+            <div class="gamelogo" id="ladderlogo">
+                <img src="./img/main/ladderlogo.png" alt="사다리">
+                <p>&lt; 사다리 &gt;</p>
+            </div>
+            <div class="gamelogo" id="bricklogo">
+                <img src="./img/main/rpslogo.png" alt="사다리">
+                <p>&lt; 벽돌깨기 &gt;</p>
+            </div>
         </div>
-        <!-- 육하원칙 -->
-        <div class="wh" style="display: none;">
-            <p>육하원칙 컨텐츠를 랜덤으로 뽑아서<br>재밌게 방송해보세요</p>
-        </div>
-    </main>
-    <!--JavaScript at end of body for optimized loading-->
-    <script type="text/javascript" charset="UTF-8" src="https://static.afreecatv.com/asset/app/extension-helper/afreecatv-extension-sdk.js"></script>
-    <script type="text/javascript" charset="UTF-8" src="./bootstrap5.0.2/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" charset="UTF-8" src="./user_screen.js"></script>
+    </div>
+    <!-- 가위바위보 -->
+    <div class="rps" style="display: none;">
+        <p>BJ와 유저가 함께하는 가위, 바위, 보<br>카드를 선택해서 BJ를 이겨보세요</p>
+    </div>
+    <!-- 육하원칙 -->
+    <div class="wh" style="display: none;">
+        <p>육하원칙 컨텐츠를 랜덤으로 뽑아서<br>재밌게 방송해보세요</p>
+    </div>
+</main>
+<!--JavaScript at end of body for optimized loading-->
+<script type="text/javascript" charset="UTF-8"
+        src="https://static.afreecatv.com/asset/app/extension-helper/afreecatv-extension-sdk.js"></script>
+<script type="text/javascript" charset="UTF-8" src="./bootstrap5.0.2/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" charset="UTF-8" src="./user_screen.js"></script>
 </body>
 </html>
