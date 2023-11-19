@@ -70,9 +70,27 @@ $(function(){
             'top': -52
         });
 
-        $('.ladder-start').show();
+        $ladderstart = $('.ladder-start');
+        $ladderstart.show();
+        $('#backbtn').show();
         $(this).hide();
-        $('#footer p').text('동그라미 아이콘을 눌러 결과를 확인해보세요!');
+        $('#footer p').text('');
+
+        let i = 1;
+        let ladderlength = $ladderstart.length;
+
+        // 순차적으로 결과 보여주기
+        $ladderstart.eq(0).trigger('click');
+
+        const intervalfunc = setInterval(() => {
+            $ladderstart.eq(i).trigger('click');
+            
+            if(i == ladderlength) {
+                clearInterval(intervalfunc);
+            }
+
+            i += 1;
+        }, 3000);
     })
 
     // 뒤로가기 버튼
@@ -90,10 +108,11 @@ $(function(){
         const val= $(this).val();
     
         if(val < minMember || val > maxMember) {
-            $(this).val(maxMember);
+            $(this).val('');
         }
     });
 
+    // 사다리 동그라미 버튼
     $(document).on('click', 'button.ladder-start', function(e){
         if(working){
             return false;
@@ -141,15 +160,14 @@ $(function(){
                 let leftNodeInfo = GLOBAL_FOOT_PRINT[leftNode];
                 let rightNodeInfo = GLOBAL_FOOT_PRINT[rightNode];
                 if(  (leftNodeInfo["change"] &&  leftNodeInfo["draw"] && !!!GLOBAL_CHECK_FOOT_PRINT[leftNode] ) && (rightNodeInfo["change"])&&  leftNodeInfo["draw"]  && !!!GLOBAL_CHECK_FOOT_PRINT[rightNode] ){
-                    //Left우선 
-                    console.log("중복일때  LEFT 우선");
+                    // console.log("중복일때  LEFT 우선");
                     stokeLine(x, y, 'w' , 'l' , color ,3)
                      setTimeout(function(){ 
                          return startLineDrawing(leftNode, color)
                      }, 100);
                 }
                 else if(  (leftNodeInfo["change"] &&  !!!leftNodeInfo["draw"] && !!!GLOBAL_CHECK_FOOT_PRINT[leftNode] ) && (rightNodeInfo["change"]) && !!!GLOBAL_CHECK_FOOT_PRINT[rightNode] ){
-                    console.log('RIGHT 우선')
+                    // console.log('RIGHT 우선')
                     stokeLine(x, y, 'w' , 'r' , color ,3)
                     console.log("right")
                     setTimeout(function(){ 
@@ -157,23 +175,21 @@ $(function(){
                      }, 100);
                 }
                 else if(  (leftNodeInfo["change"] &&  leftNodeInfo["draw"] && !!!GLOBAL_CHECK_FOOT_PRINT[leftNode] ) && (!!!rightNodeInfo["change"]) ){
-                    //Left우선 
-                    console.log("LEFT 우선");
+                    // console.log("LEFT 우선");
                     stokeLine(x, y, 'w' , 'l' , color ,3)
                      setTimeout(function(){ 
                          return startLineDrawing(leftNode, color)
                      }, 100);
                 }
                  else if(  !!!leftNodeInfo["change"]  &&  (rightNodeInfo["change"]) && !!!GLOBAL_CHECK_FOOT_PRINT[rightNode] ){
-                    //Right우선 
-                    console.log("RIGHT 우선");
+                    // console.log("RIGHT 우선");
                     stokeLine(x, y, 'w' , 'r' , color ,3)
                      setTimeout(function(){ 
                          return startLineDrawing(rightNode, color)
                      }, 100);
                 }
                 else{
-                    console.log('DOWN 우선')
+                    // console.log('DOWN 우선')
                     stokeLine(x, y, 'h' , 'd' , color ,3)
                     setTimeout(function(){ 
                        return startLineDrawing(downNode, color)
@@ -182,17 +198,15 @@ $(function(){
             }else{
                 console.log('else')
                if(!!!GLOBAL_FOOT_PRINT.hasOwnProperty(leftNode) && GLOBAL_FOOT_PRINT.hasOwnProperty(rightNode)){      
-                    /// 좌측라인
-                    console.log('좌측라인')
+                    // console.log('좌측라인')
                     if(  (rightNodeInfo["change"] && !!!rightNodeInfo["draw"] ) && !!!GLOBAL_CHECK_FOOT_PRINT[rightNode] ){
-                        //Right우선 
-                        console.log("RIGHT 우선");
+                        // console.log("RIGHT 우선");
                         stokeLine(x, y, 'w' , 'r' , color ,3)
                         setTimeout(function(){ 
                             return startLineDrawing(rightNode, color)
                         }, 100);
                     }else{
-                        console.log('DOWN')
+                        // console.log('DOWN')
                         stokeLine(x, y, 'h' , 'd' , color ,3)
                         setTimeout(function(){ 
                            return startLineDrawing(downNode, color)
@@ -200,17 +214,15 @@ $(function(){
                     }
                     
                }else if(GLOBAL_FOOT_PRINT.hasOwnProperty(leftNode) && !!!GLOBAL_FOOT_PRINT.hasOwnProperty(rightNode)){      
-                    /// 우측라인
-                    console.log('우측라인')
+                    // console.log('우측라인')
                     if(  (leftNodeInfo["change"] && leftNodeInfo["draw"] ) && !!!GLOBAL_CHECK_FOOT_PRINT[leftNode] ){
-                        //Right우선 
-                        console.log("LEFT 우선");
+                        // console.log("LEFT 우선");
                         stokeLine(x, y, 'w' , 'l' , color ,3)
                         setTimeout(function(){ 
                             return startLineDrawing(leftNode, color)
                         }, 100);
                     }else{
-                        console.log('DOWN')
+                        // console.log('DOWN')
                         stokeLine(x, y, 'h' , 'd' , color ,3)
                         setTimeout(function(){ 
                            return startLineDrawing(downNode, color)
@@ -219,7 +231,7 @@ $(function(){
                }
             }
         }else{
-            console.log("down")
+            // console.log("down")
             let downNode = x +"-"+ (y + 1);
             stokeLine(x, y, 'h' , 'd' , color ,3)
             setTimeout(function(){ 
