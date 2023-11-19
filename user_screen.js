@@ -48,20 +48,20 @@ const set5w1hDisplay = (action) => {
 }
 
 // 안내면진다 안내
-rpslogo.addEventListener('click', function() {
-    setDefaultDisplay('hide');
-    setRpsDisplay('show');
-    set5w1hDisplay('hide');
-    backbtn.style.display = '';
-});
-
-// 6하원칙 안내
-whlogo.addEventListener('click', function() {
-    setDefaultDisplay('hide');
-    setRpsDisplay('hide');
-    set5w1hDisplay('show');
-    backbtn.style.display = '';
-});
+// rpslogo.addEventListener('click', function() {
+//     setDefaultDisplay('hide');
+//     setRpsDisplay('show');
+//     set5w1hDisplay('hide');
+//     backbtn.style.display = '';
+// });
+//
+// // 6하원칙 안내
+// whlogo.addEventListener('click', function() {
+//     setDefaultDisplay('hide');
+//     setRpsDisplay('hide');
+//     set5w1hDisplay('show');
+//     backbtn.style.display = '';
+// });
 
 // 뒤로가기 버튼
 backbtn.addEventListener('click', function() {
