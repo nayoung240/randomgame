@@ -32,6 +32,7 @@
     var score = 0;
     var lives = 3;
     let scoreSum = brickRowCount*brickColumnCount;
+    let animationId;
 
     var bricks = [];
     for(var c=0; c<brickColumnCount; c++) {
@@ -73,7 +74,8 @@
                         b.status = 0;
                         score++;
                         if(score == scoreSum) {
-                            brickColumnCount += 1;
+                            brickColumnCount = (brickColumnCount < 6) ? (brickColumnCount+1) : brickColumnCount;
+                            
                             scoreSum += brickColumnCount*brickRowCount;
                             for(var c=0; c<brickColumnCount; c++) {
                                 bricks[c] = [];
@@ -83,7 +85,7 @@
                             }
                             x=240;
                             y=290;
-                            requestAnimationFrame(draw);
+                            animationId = requestAnimationFrame(draw);
                         }
                     }
                 }
@@ -176,7 +178,11 @@
 
         x += dx;
         y += dy;
-        requestAnimationFrame(draw);
+        animationId = requestAnimationFrame(draw);
+    }
+    // 게임 정지
+    function stopGame() {
+      cancelAnimationFrame(animationId);
     }
 
     document.addEventListener("keydown", keyDownHandler, false);
