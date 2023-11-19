@@ -23,10 +23,15 @@ $(document).ready(function () {
         $('#itemWhat').text(whatItems[Math.floor(Math.random() * whatItems.length)]);
     }, 100);
 
-    $("button[id='stopBtn']").on("click", function () {
+    $("input[id='stopBtn']").on("click", function () {
         clearInterval(randomSlot);
     });
-    $("button[id='resetBtn']").on("click", function () {
+
+    $("input[id='resetBtn']").on("click", function () {
         location.reload();
+    });
+
+    $("img[id='homebtn']").on("click", function () {
+        window.location.replace('bj_screen.html');
     });
 });
