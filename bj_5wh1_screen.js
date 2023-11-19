@@ -30,11 +30,11 @@ $(function(){
         $('#itemWhat').text(whatItems[Math.floor(Math.random() * whatItems.length)]);
     }, 100);
 
-    $("input[id='stopBtn']").on("click", function () {
+    $("#stopBtn").on("click", function () {
         clearInterval(randomSlot);
     });
 
-    $("input[id='resetBtn']").on("click", function () {
+    $("#resetBtn").on("click", function () {
         location.reload();
     });
 
