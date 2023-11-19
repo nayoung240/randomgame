@@ -21,8 +21,6 @@ $(function(){
     extensionSdk.broadcast.send(START_GAME, 'main');
 
     const canvasDraw = () => {
-        $('html').scrollTop(0);
-
         ladder.css({
             'width' :( widthNode-1) * 100 + 6,
             'height' : (heightNode -1 ) * 25 + 6,
@@ -40,6 +38,8 @@ $(function(){
         drawDefaultLine();
         userSetting();
         resultSetting();
+
+        $('html').scrollTop(0);
     }
 
     $('#button').on('click', function(){
@@ -61,8 +61,8 @@ $(function(){
         }, 300)
     });
 
-    // go 버튼
-    $(document).on('click', '#go', function(e){
+    // Go 버튼
+    $(document).on('click', '#go', function(e) {
         drawNodeLine();
 
         $('.user-wrap').css({
@@ -70,11 +70,18 @@ $(function(){
         });
 
         $('.ladder-start').show();
+        $(this).hide();
+        $('#footer p').text('동그라미 아이콘을 눌러 결과를 확인해보세요!');
     })
 
-    // 새로고침 버튼
+    // 뒤로가기 버튼
     $(document).on('click', '#backbtn', function(e){
         location.reload();
+    })
+
+    // 홈으로가기 버튼
+    $(document).on('click', '#homebtn', function(e){
+        window.location = './bj_screen.html';
     })
 
     // 참여자 수 input
@@ -232,7 +239,6 @@ $(function(){
 
             html += `<div class="user-wrap" style="left:${left}">`;
             html += `<input type="text" data-node="${userList[i]}">`;
-            // html += `<button class="ladder-start" style="background-color:${color};" data-color="${color}" data-node="${userList[i]}"></button>`;
             html += `<button class="ladder-start" style="display:none; background-color:${color};" data-color="${color}" data-node="${userList[i]}"></button>`;
             html += '</div>';
         }

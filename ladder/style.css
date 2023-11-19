@@ -312,13 +312,9 @@ input:focus ~ .highlight {
     to    { width:0; background:transparent; }
 }
 
-#inputquide {
-    color: #858282;
-}
-
 #footer {
     margin-top: 15px;
-    color: #858282;
+    color: #3b3a3a;
     text-align: center;
 }
 
@@ -331,9 +327,9 @@ input:focus ~ .highlight {
     background-color: #b8e9e6;
 }
 
-#backbtn {
+#backbtn, #homebtn {
     width: 20px;
     margin-left: 20px;
     cursor: pointer;
-    filter: invert(95%) sepia(0%) saturate(1122%) hue-rotate(214deg) brightness(79%) contrast(71%);
+    filter: invert(41%) sepia(82%) saturate(6330%) hue-rotate(162deg) brightness(101%) contrast(98%);
 }
