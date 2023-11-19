@@ -4,7 +4,7 @@
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link rel="stylesheet" href="./bootstrap5.0.2/css/bootstrap.min.css"> -->
-    <link rel="import" href="http://www.polymer-project.org/components/paper-ripple/paper-ripple.html">
+    <!-- <link rel="import" href="http://www.polymer-project.org/components/paper-ripple/paper-ripple.html"> -->
     <link rel="stylesheet" type="text/css" href="./ladder/style.css">
     <title>randomgame</title>
 </head>
@@ -17,8 +17,8 @@
                     <input type="number" name="member" required>
                     <span class="highlight"></span>
                     <span class="bar"></span>
-                    <label>참여자 수를 적어주세요</label>
-                    <div  id="button" class="button raised green">
+                    <label>참여자 수를 적어주세요<br>최소 2명 ~ 최대 20명까지 가능합니다.</label>
+                    <div id="button" class="button raised green">
                         <div class="center" fit>START</div>
                         <paper-ripple fit></paper-ripple>
                     </div>
@@ -30,7 +30,10 @@
         <div class="dim"></div>
         <canvas class="ladder_canvas" id="ladder_canvas"></canvas>
     </div>
-    <p id="guide">입력을 완료하고<br><br>동그라미 아이콘을 눌러서 확인해보세요!</p>
+    <div id="footer">
+        <button type="button" id="go">GO!</button>
+        <p>각각의 빈칸에 입력 후 GO!<br>아이콘을 눌러 결과를 확인해보세요!</p>
+    </div>
     <script type="text/javascript" charset="UTF-8" src="./ladder/jquery-2.1.3.min.js"></script>
     <!--JavaScript at end of body for optimized loading-->
     <script type="text/javascript" charset="UTF-8" src="https://static.afreecatv.com/asset/app/extension-helper/afreecatv-extension-sdk.js"></script>

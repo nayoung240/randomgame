@@ -13,37 +13,14 @@ $(function(){
     let GLOBAL_FOOT_PRINT= {};
     let GLOBAL_CHECK_FOOT_PRINT= {};
     let working = false;
+    const minMember = 2;
+    const maxMember = 20;
 
     let userName = "";
 
     extensionSdk.broadcast.send(START_GAME, 'main');
 
-    function init(){
-        canvasDraw();
-    }
-
-    $('#button').on('click', function(){
-        let member = $('input[name=member]').val();
-
-        if(member < 2){
-            return alert('최소 2명부터 가능합니다.')
-        }
-        if(member > 20){
-            return alert('최대 20명까지 가능합니다.');
-        }
-        $('#landing').css({
-            'opacity': 0
-        });
-
-        widthNode = member;
-        setTimeout(function(){
-            $('#landing').remove();
-            init();
-        }, 310)
-
-    });
-
-    function canvasDraw(){
+    const canvasDraw = () => {
         $('html').scrollTop(0);
 
         ladder.css({
@@ -51,6 +28,7 @@ $(function(){
             'height' : (heightNode -1 ) * 25 + 6,
             'background-color' : '#fff'
         });
+
        ladder_canvas
        .attr('width' , ( widthNode-1) * 100 + 6)
        .attr('height' , ( heightNode-1) * 25 + 6);
@@ -60,15 +38,53 @@ $(function(){
         setDefaultRowLine();
         setRandomNodeData();
         drawDefaultLine();
-        drawNodeLine();
         userSetting();
         resultSetting();
     }
+
+    $('#button').on('click', function(){
+        const member = $('input[name=member]').val();
+
+        if(member < minMember || member > maxMember) {
+            return;
+        }
+
+        widthNode = member;
+
+        $('#landing').css({
+            'opacity': 0
+        });
+
+        setTimeout(function(){
+            $('#landing').remove();
+            canvasDraw();
+        }, 300)
+    });
+
+    // go 버튼
+    $(document).on('click', '#go', function(e){
+        drawNodeLine();
+
+        $('.user-wrap').css({
+            'top': -52
+        });
+
+        $('.ladder-start').show();
+    })
 
     // 새로고침 버튼
     $(document).on('click', '#backbtn', function(e){
         location.reload();
     })
+
+    // 참여자 수 input
+    $(document).on("keyup", "input[name=member]", function() {
+        const val= $(this).val();
+    
+        if(val < minMember || val > maxMember) {
+            $(this).val(maxMember);
+        }
+    });
 
     $(document).on('click', 'button.ladder-start', function(e){
         if(working){
@@ -212,9 +228,13 @@ $(function(){
 
             let x = userList[i].split('-')[0]*1;
             let y = userList[i].split('-')[1]*1;
-            let left = x * 100  -30
-            html += '<div class="user-wrap" style="left:'+left+'"><input type="text" data-node="'+userList[i]+'"><button class="ladder-start" style="background-color:'+color+'" data-color="'+color+'" data-node="'+userList[i]+'"></button>';
-            html +='</div>'
+            let left = x * 100-30;
+
+            html += `<div class="user-wrap" style="left:${left}">`;
+            html += `<input type="text" data-node="${userList[i]}">`;
+            // html += `<button class="ladder-start" style="background-color:${color};" data-color="${color}" data-node="${userList[i]}"></button>`;
+            html += `<button class="ladder-start" style="display:none; background-color:${color};" data-color="${color}" data-node="${userList[i]}"></button>`;
+            html += '</div>';
         }
         ladder.append(html);
     }

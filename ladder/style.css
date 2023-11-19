@@ -21,7 +21,7 @@ time, mark, audio, video {
     margin: 0;
     padding: 0;
     border: 0;
-    font-size: 100%;
+    font-size: 14px;
     vertical-align: baseline;
     font-family: 'IBM Plex Sans KR', sans-serif;
 }
@@ -90,7 +90,7 @@ html, body{
 .user-wrap{
     width: 60px;
     position: absolute;
-    top : -52px;
+    top : -20px;
     text-align: center;
 }
 .user-wrap input{
@@ -146,7 +146,7 @@ html, body{
 }
 .landing-form{
     position: absolute;
-    top:270px;
+    top:280px;
 }
 .landing-form input{
     text-align: center;
@@ -157,7 +157,7 @@ html, body{
     width: 100%;
 }
 .landing-form .button{
-    margin-top: 30px;
+    margin-top: 40px;
     width: 80px;
 }
 .dim{
@@ -238,12 +238,11 @@ input:focus         { outline:none; }
 /* LABEL ======================================= */
 label                {
     color:#999; 
-    font-size:18px;
     font-weight:normal;
     position:absolute;
     pointer-events:none;
     left:5px;
-    top:10px;
+    top:-10px;
     transition:0.2s ease all; 
     -moz-transition:0.2s ease all; 
     -webkit-transition:0.2s ease all;
@@ -251,7 +250,7 @@ label                {
 
 /* active state */
 input:focus ~ label, input:valid ~ label        {
-    top:-20px;
+    top:-40px;
     font-size:14px;
     color:#52ae87;
 }
@@ -313,10 +312,23 @@ input:focus ~ .highlight {
     to    { width:0; background:transparent; }
 }
 
-#guide {
-    text-align: center;
-    font-size: 13px;
+#inputquide {
+    color: #858282;
+}
+
+#footer {
     margin-top: 15px;
+    color: #858282;
+    text-align: center;
+}
+
+#go {
+    margin-bottom: 15px;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    background-color: #b8e9e6;
 }
 
 #backbtn {
