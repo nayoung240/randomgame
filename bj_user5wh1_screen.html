@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./bootstrap5.0.2/css/bootstrap.min.css">
+    <title>5wh1game</title>
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500;600&display=swap');
+
+    body {
+        background-color: #eb3251;
+        color: white;
+        font-family: 'IBM Plex Sans KR', sans-serif;
+        padding: 10px;
+    }
+
+    header, main, footer {
+        margin-top: 10px;
+    }
+
+    .gametitle img{
+        padding: 0px;
+        maring: 0px;
+        width: 220px;
+        height: 100px;
+    }
+
+    .btn {
+        border-radius: 50%;
+        width: 70px;
+        height: 70px;
+        margin: 10px;
+        padding: 5px;
+    }
+
+    .gamecard {
+        background-color: #f3f1f1;
+        border-radius: 10px;
+        width: 70%;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 5px;
+        color: black;
+        font-family: 'IBM Plex Sans KR', sans-serif;
+        font-weight: 600;
+        font-size: larger;
+        margin-right: 30px;
+    }
+
+    .card-title {
+        width: 12%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+</style>
+<body>
+<header class="text-center">
+    <div class="default">
+        <div class="d-flex align-items-start" >
+            <img id="homebtn" src="./img/go-home.png" style="margin-left: auto; cursor: pointer;" alt="홈으로 가기">
+        </div>
+        <div class="gametitle">
+            <img src="./img/5wh1/5wh1title.png">
+        </div>
+        <p>&lt; 버튼을 눌러 슬롯을 멈춰주세요&gt;</p>
+    </div>
+</header>
+<main>
+    <div class="justify-content-center">
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="card-title">언제</div>
+            <div class="gamecard">
+                <div class="txt">
+                    <span id="itemWhen">?</span>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="card-title">어디서</div>
+            <div class="gamecard">
+                <div class="txt">
+                    <span id="itemWhere">?</span>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="card-title">누가</div>
+            <div class="gamecard">
+                <div class="txt">
+                    <span id="itemWho">?</span>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="card-title">어떻게</div>
+            <div class="gamecard">
+                <div class="txt">
+                    <span id="itemHow">?</span>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="card-title">무엇을</div>
+            <div class="gamecard">
+                <div class="txt">
+                    <span id="itemWhat">?</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer class="text-center">
+    <div class="default">
+        <input type="button" id="resetBtn" class="btn btn-success" value="RESET">
+        <input type="button" id="stopBtn" class="btn btn-warning" value="STOP">
+    </div>
+</footer>
+<!--JavaScript at end of body for optimized loading-->
+<script type="text/javascript" charset="UTF-8" src="https://static.afreecatv.com/asset/app/extension-helper/afreecatv-extension-sdk.js"></script>
+<script type="text/javascript" charset="UTF-8" src="./bootstrap5.0.2/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="./bj_user5wh1_screen.js"></script>
+</body>
+</html>
