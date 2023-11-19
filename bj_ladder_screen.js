@@ -18,6 +18,7 @@ $(function(){
 
     let userName = "";
 
+    // 유저 화면은 메인으로 보내기
     extensionSdk.broadcast.send(START_GAME, 'main');
 
     const canvasDraw = () => {
