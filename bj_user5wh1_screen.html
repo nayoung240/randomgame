@@ -21,13 +21,6 @@
         margin-top: 10px;
     }
 
-    .gametitle img{
-        padding: 0px;
-        margin: 0px;
-        width: 300px;
-        height: 140px;
-    }
-
     .btn {
         border-radius: 50%;
         width: 70px;
@@ -36,29 +29,32 @@
         padding: 5px;
     }
 
-    .gamecard {
-        background-color: #f3f1f1;
-        border-radius: 10px;
-        width: 70%;
-        height: 50px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 5px;
-        color: black;
-        font-family: 'IBM Plex Sans KR', sans-serif;
-        font-weight: 600;
-        font-size: larger;
-        margin-right: 30px;
+    #chatlist {
+        width: 300px;
     }
 
-    .card-title {
-        width: 12%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    .on {
+        background-color: #fcc00f;
+        border: none;
     }
 
+    .off {
+        background-color: #eb3251;
+        border: none;
+    }
+
+    #halfcircle { 
+        width: 50px; 
+        height: 100px; 
+        border-radius: 150px 0 0 150px;
+        border: none;
+        background-color: #3282ebaf;
+        color: white;
+        right: 0%;
+        top: 50%;
+        position:fixed;
+        z-index:1000;
+    }
 </style>
 <body>
 <header class="text-center">
@@ -66,61 +62,24 @@
         <div class="d-flex align-items-start" >
             <img id="homebtn" src="./img/go-home.png" style="margin-left: auto; cursor: pointer;" alt="홈으로 가기">
         </div>
-        <div class="gametitle">
-            <img src="./img/5wh1/5wh1title.png">
-        </div>
-        <p>&lt; 버튼을 눌러 슬롯을 멈춰주세요&gt;</p>
+        <h1>1. 언제</h1><br>
+        <p>&bull; 제거하고싶은 텍스는 선택하여 비활성화 시켜주세요.<br>&bull; 선착순 50개까지 받을 수 있습니다.</p>
     </div>
 </header>
 <main>
-    <div class="justify-content-center">
-        <div class="d-flex justify-content-center align-items-center">
-            <div class="card-title">언제</div>
-            <div class="gamecard">
-                <div class="txt">
-                    <span id="itemWhen">?</span>
-                </div>
-            </div>
-        </div>
-        <div class="d-flex justify-content-center align-items-center">
-            <div class="card-title">어디서</div>
-            <div class="gamecard">
-                <div class="txt">
-                    <span id="itemWhere">?</span>
-                </div>
-            </div>
-        </div>
-        <div class="d-flex justify-content-center align-items-center">
-            <div class="card-title">누가</div>
-            <div class="gamecard">
-                <div class="txt">
-                    <span id="itemWho">?</span>
-                </div>
-            </div>
-        </div>
-        <div class="d-flex justify-content-center align-items-center">
-            <div class="card-title">어떻게</div>
-            <div class="gamecard">
-                <div class="txt">
-                    <span id="itemHow">?</span>
-                </div>
-            </div>
-        </div>
-        <div class="d-flex justify-content-center align-items-center">
-            <div class="card-title">무엇을</div>
-            <div class="gamecard">
-                <div class="txt">
-                    <span id="itemWhat">?</span>
-                </div>
-            </div>
-        </div>
+    <div class="d-flex align-items-center flex-column mb-3">
+        <div class="p-1"><button class="chat on">24242424</button></div>
+        <div class="p-1"><button class="chat on">24242424242424242424242424242424242424242424242422</button></div>
+        <div class="p-1"><button class="chat off">24242424</button></div>
+        <div class="p-1"><button class="chat on">24242424</button></div>
+        <div class="p-1"><button class="chat on">24242424</button></div>
+        <div class="p-1"><button class="chat on">24242424</button></div>
+        <div class="p-1"><button class="chat on">24242424</button></div>
+        <div class="p-1"><button class="chat on">24242424</button></div>
     </div>
 </main>
 <footer class="text-center">
-    <div class="default">
-        <input type="button" id="resetBtn" class="btn btn-success" value="RESET">
-        <input type="button" id="stopBtn" class="btn btn-warning" value="STOP">
-    </div>
+    <button id="halfcircle">NEXT</button>
 </footer>
 <!--JavaScript at end of body for optimized loading-->
 <script type="text/javascript" charset="UTF-8" src="https://static.afreecatv.com/asset/app/extension-helper/afreecatv-extension-sdk.js"></script>
