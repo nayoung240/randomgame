@@ -11,7 +11,7 @@
     @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500;600&display=swap');
 
     body {
-        background-color: #eb3251;
+        background-color: #2e2e2e;
         color: white;
         font-family: 'IBM Plex Sans KR', sans-serif;
         padding: 10px;
@@ -43,47 +43,113 @@
         border: none;
     }
 
-    #halfcircle { 
+    #nextbtn { 
         width: 50px; 
         height: 100px; 
         border-radius: 150px 0 0 150px;
         border: none;
-        background-color: #3282ebaf;
-        color: white;
+        background-color: #ffffffaf;
         right: 0%;
-        top: 50%;
+        top: 40%;
         position:fixed;
         z-index:1000;
     }
+
+    #nextbtn:hover {
+        background-color: white;
+    }
+
+    .guide {
+        border: 2px solid rgba(0,0,0,.125);
+        border-radius: 3.25rem;
+        margin-top: 20px;
+    }
+
+    #guide5w {
+        border-color: #ff9900;
+    }
+
+    #guide5w h4 {
+        color:  #ff9900;
+    }
+
+    #guidelast {
+        border-color: #00ffc8;
+    }
+
+    #guidelast h4 {
+        color:  #00ffc8;
+    }
+
+    #guidebj {
+        border-color: #0099ff;
+    }
+
+    #guidebj h4 {
+        color:  #0099ff;
+    }
 </style>
 <body>
-<header class="text-center">
-    <div class="default">
+    <button id="nextbtn">NEXT</button>
+    <header class="text-center">
         <div class="d-flex align-items-start" >
             <img id="homebtn" src="./img/go-home.png" style="margin-left: auto; cursor: pointer;" alt="홈으로 가기">
         </div>
-        <h1>1. 언제</h1><br>
-        <p>&bull; 제거하고싶은 텍스는 선택하여 비활성화 시켜주세요.<br>&bull; 선착순 50개까지 받을 수 있습니다.</p>
-    </div>
-</header>
-<main>
-    <div class="d-flex align-items-center flex-column mb-3">
-        <div class="p-1"><button class="chat on">24242424</button></div>
-        <div class="p-1"><button class="chat on">24242424242424242424242424242424242424242424242422</button></div>
-        <div class="p-1"><button class="chat off">24242424</button></div>
-        <div class="p-1"><button class="chat on">24242424</button></div>
-        <div class="p-1"><button class="chat on">24242424</button></div>
-        <div class="p-1"><button class="chat on">24242424</button></div>
-        <div class="p-1"><button class="chat on">24242424</button></div>
-        <div class="p-1"><button class="chat on">24242424</button></div>
-    </div>
-</main>
-<footer class="text-center">
-    <button id="halfcircle">NEXT</button>
-</footer>
-<!--JavaScript at end of body for optimized loading-->
-<script type="text/javascript" charset="UTF-8" src="https://static.afreecatv.com/asset/app/extension-helper/afreecatv-extension-sdk.js"></script>
-<script type="text/javascript" charset="UTF-8" src="./bootstrap5.0.2/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript" src="./bj_user5wh1_screen.js"></script>
+        <div class="default">
+            <h1>사용설명서</h1>
+        </div>
+        <div class="process" style="display: none;">
+            <h1 id="w_title">1. 언제 ?</h1><br>
+            <p id="w_subtitle">언제에 해당하는 채팅을 보내주세요!</p>
+        </div>
+    </header>
+    <main class="text-center">
+        <div class="default">
+            <div id="guide5w" class="guide">
+                <br><h4>언제, 어디서, 누가, 어떻게, 무엇을</h4><br>
+                <p>&bull; 위의 순서대로 육하원칙 후보를 정해야합니다.</p>
+                <p>&bull; 자격요건을 갖춘 유저들이 채팅을 보내면 목록에 추가됩니다.</p>
+                <p>&bull; 목록은 선착순 50개까지 받을 수 있습니다.</p>
+                <p>&bull; BJ가 제거하고싶은 목록은 클릭하여 비활성화할 수 있습니다.</p>
+            </div>
+            <div id="guidelast" class="guide">
+                <br><h4>랜덤뽑기</h4><br>
+                <p>&bull; 마지막은 위에서 진행하면서 선택된 후보들로<br>랜덤 뽑기를 진행할 수 있습니다.</p>
+            </div>
+            <div id="guidebj" class="guide">
+                <br><h4>유저 자격요건 설정</h4><br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="user" id="user1" value="user1" checked>
+                    <label class="form-check-label" for="user1">모든 유저</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="user" id="user2" value="user2">
+                    <label class="form-check-label" for="user2">로그인한 유저</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="user" id="user3" value="user3">
+                    <label class="form-check-label" for="user3">팬가입한 유저</label>
+                </div><br><br>
+            </div>
+        </div>
+        <div class="process" style="display: none;">
+            <div class="chatdiv d-flex align-items-center flex-column mb-3">
+                <div class="p-1"><button class="chat on">24242424</button></div>
+                <div class="p-1"><button class="chat on">24242424242424242424242424242424242424242424242422</button></div>
+                <div class="p-1"><button class="chat off">24242424</button></div>
+                <div class="p-1"><button class="chat on">24242424</button></div>
+                <div class="p-1"><button class="chat on">24242424</button></div>
+                <div class="p-1"><button class="chat on">24242424</button></div>
+                <div class="p-1"><button class="chat on">24242424</button></div>
+                <div class="p-1"><button class="chat on">24242424</button></div>
+            </div>
+        </div>
+    </main>
+    <footer class="text-center">
+    </footer>
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" charset="UTF-8" src="https://static.afreecatv.com/asset/app/extension-helper/afreecatv-extension-sdk.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="./bootstrap5.0.2/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="./bj_user5wh1_screen.js"></script>
 </body>
 </html>
