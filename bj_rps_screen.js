@@ -156,13 +156,13 @@ selectbtn.addEventListener('click', function() {
 });
 
 homebtn.addEventListener('click', function() {
-    window.location.replace('bj_screen.html');
+    window.location.replace('./bj_screen.html');
 });
 
 gohomebtn.addEventListener('click', function() {
-    window.location.replace('bj_screen.html');
+    window.location.replace('./bj_screen.html');
 });
 
 backbtn.addEventListener('click', function() {
-    window.location.replace('bj_rps_screen.html');
+    window.location.replace('./bj_rps_screen.html');
 });
