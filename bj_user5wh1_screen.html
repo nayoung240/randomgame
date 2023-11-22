@@ -96,12 +96,56 @@
     #w_title, #w_subtitle {
         font-weight: 600;
     }
+
+    .gametitle img {
+        padding: 0px;
+        margin: 0px;
+        width: 300px;
+        height: 140px;
+    }
+
+    .btn img {
+        width: 75px;
+        height: 75px;
+    }
+
+    .gamecard {
+        background-color: #f3f1f1;
+        border-radius: 10px;
+        width: 70%;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 5px;
+        color: black;
+        font-family: 'IBM Plex Sans KR', sans-serif;
+        font-weight: 600;
+        font-size: larger;
+        margin-right: 30px;
+    }
+
+    .card-title {
+        width: 12%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #backbtn {
+        display:none; margin-left: 10px; cursor: pointer;
+    }
+
+    #homebtn {
+        margin-left: auto; cursor: pointer;
+    }
 </style>
 <body>
     <button id="nextbtn">NEXT</button>
     <header class="text-center">
         <div class="d-flex align-items-start" >
-            <img id="homebtn" src="./img/go-home.png" style="margin-left: auto; cursor: pointer;" alt="홈으로 가기">
+            <img id="backbtn" src="./img/go-prev-arrow.png" alt="뒤로가기" >
+            <img id="homebtn" src="./img/go-home.png" alt="홈으로가기">
         </div>
         <div class="default">
             <h1>사용설명서</h1>
@@ -109,6 +153,12 @@
         <div class="process" style="display: none;">
             <h1 id="w_title">1. 언제 ?</h1>
             <p id="w_subtitle">후보에 넣고 싶은 채팅을 보내주세요!<br>포함하고 싶지 않은 항목은 클릭하여 비활성화 해주세요.</p>
+        </div>
+        <div class="last" style="display: none;">
+            <div class="gametitle">
+                <img src="./img/5wh1/5wh1title.png">
+            </div>
+            <p>&lt; 버튼을 눌러 슬롯을 멈춰주세요&gt;</p>
         </div>
     </header>
     <main class="text-center">
@@ -127,19 +177,19 @@
             <div id="guidebj" class="guide">
                 <br><h4>유저 자격요건 설정하기</h4><br>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="user" id="user1" value="user1" checked>
+                    <input class="form-check-input" type="radio" name="user" id="user1" value="all" checked>
                     <label class="form-check-label" for="user1">모든 유저</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="user" id="user2" value="user2">
+                    <input class="form-check-input" type="radio" name="user" id="user2" value="login">
                     <label class="form-check-label" for="user2">로그인한 유저</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="user" id="user3" value="user3">
+                    <input class="form-check-input" type="radio" name="user" id="user3" value="fan">
                     <label class="form-check-label" for="user3">팬가입한 유저</label>
                 </div><br>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="user" id="user4" value="user3">
+                    <input class="form-check-input" type="radio" name="user" id="user4" value="star">
                     <label class="form-check-label" for="user4">별풍선 선물 유저</label>
                     &nbsp<input type="number" id="starcnt" style="width: 65px;" min="0" value="0">&nbsp개
                 </div><br><br>
@@ -175,8 +225,34 @@
       
             </div>
         </div>
+        <div class="last" style="display: none;">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="card-title">언제</div>
+                <div class="gamecard"><div class="txt"><span id="itemWhen"></span></div></div>
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="card-title">어디서</div>
+                <div class="gamecard"><div class="txt"><span id="itemWhere"></span></div></div>
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="card-title">누가</div>
+                <div class="gamecard"><div class="txt"><span id="itemWho"></span></div></div>
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="card-title">어떻게</div>
+                <div class="gamecard"><div class="txt"><span id="itemHow"></span></div></div>
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="card-title">무엇을</div>
+                <div class="gamecard"><div class="txt"><span id="itemWhat"></span></div></div>
+            </div>
+        </div>
     </main>
     <footer class="text-center">
+        <div class="last" style="display: none;">
+            <div class="btn"><img id="resetBtn" src="./img/5wh1/reset-button.png"></div>
+            <div class="btn"><img id="stopBtn" src="./img/5wh1/stop-button.png"></div>
+        </div>
     </footer>
     <!--JavaScript at end of body for optimized loading-->
     <script type="text/javascript" charset="UTF-8" src="https://static.afreecatv.com/asset/app/extension-helper/afreecatv-extension-sdk.js"></script>
