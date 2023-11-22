@@ -26,7 +26,8 @@ const newMake = () => {
     const rultListElmnts = document.getElementsByName('rultSpace');
     product = [];
     for (let i = 0; i < rultListElmnts.length; i++) {
-        product.push(rultListElmnts[i].value);
+        const spaceElm = document.getElementById('rultSpace' + (i + 1));
+        product.push(spaceElm.value);
     }
 
     const [cw, ch] = [$c.width / 2, $c.height / 2];
@@ -96,10 +97,6 @@ const rotate = () => {
 
         $c.style.transform = `rotate(-${rotate}deg)`;
         $c.style.transition = `2s`;
-        const result = product[ran];
-        setTimeout(() =>
-            rultResult.textContent = result
-            , 2000);
     }, 1);
 };
 
@@ -109,8 +106,21 @@ const clickPlus = () => {
         return;
     }
     optNum.value++;
+
     // input박스 추가
-    document.getElementById('spaceList').innerHTML += createInput(optNum.value);
+    let newInput = document.createElement("input");
+    const inputId = "rultSpace" + optNum.value;
+    newInput.setAttribute("id", inputId);
+    newInput.setAttribute("type", "text");
+    newInput.setAttribute("name", "rultSpace");
+    const inputVal = "옵션" + optNum.value;
+    newInput.setAttribute("value", inputVal);
+    newInput.setAttribute("class", "form-control");
+    newInput.setAttribute("on", "form-control");
+    newInput.setAttribute("maxlength", "50");
+    newInput.setAttribute("oninput", 'changeRultSpace(this)');
+    document.getElementById('spaceList').append(newInput);
+
     // 룰렛 재생성
     newMake();
 }
@@ -126,11 +136,6 @@ const clickMinus = () => {
     newMake();
 }
 
-const createInput = (idIdx) => {
-    return "<input id='rultSpace" + idIdx + "' type='text' name='rultSpace' value='옵션"
-        + idIdx + "' class='form-control' oninput='changeRultSpace(this)' maxlength=\"50\">";
-}
-
 const deleteInput = (idIdx) => {
     if (product.length <= 2) {
         return;
@@ -144,7 +149,7 @@ const changeRultSpace = (obj) => {
     newMake();
 }
 
-homebtn.addEventListener('click', function() {
+homebtn.addEventListener('click', function () {
     window.location.replace('./bj_screen.html');
 });
 
