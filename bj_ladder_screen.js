@@ -43,6 +43,7 @@ $(function(){
         $('html').scrollTop(0);
     }
 
+    // 다음페이지
     $('#button').on('click', function(){
         const member = $('input[name=member]').val();
 
@@ -59,6 +60,7 @@ $(function(){
         setTimeout(function(){
             $('#landing').remove();
             canvasDraw();
+            $('#backbtn').show();
         }, 300)
     });
 
