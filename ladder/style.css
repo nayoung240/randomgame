@@ -69,7 +69,7 @@ html, body{
 }
 .ladder{
     position: relative;
-    margin: 100px auto;
+    margin: 150px auto;
     z-index: 0;
 }
 .node{
@@ -155,7 +155,7 @@ html, body{
 }
 .landing-form .button{
     margin-top: 40px;
-    width: 120px;
+    width: 100px;
 }
 .dim{
     width: 100%;
@@ -173,7 +173,7 @@ html, body{
     width: 120px;
     height: 32px;
     line-height: 32px;
-    border-radius: 2px;
+    border-radius: 20px;
     font-size: 0.9em;
     background-color: #fff;
     color: #646464;
