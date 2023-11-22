@@ -36,8 +36,6 @@ div {
 }
 
 .roulette-btn {
-    margin-top: 0.5rem;
-    /*padding: .8rem 1.8rem;*/
 }
 
 .roulette-btn img {
@@ -47,7 +45,6 @@ div {
 }
 
 .space-option {
-    margin: 5px;
 }
 
 .num-option {
@@ -70,20 +67,17 @@ div {
     align-items: center;
 }
 
-#roulette-base::before {
+#roulette-base img {
     margin-top: 5px;
-    content: "";
     position: absolute;
-    width: 10px;
-    height: 50px;
-    border-radius: 5px;
-    background: #000;
-    top: -20px;
+    width: 150px;
+    height: 150px;
+    top: -45px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 100;
 }
 
 #roulette-base {
-    /*margin: 1px;*/
+    height: 430px;
 }
