@@ -22,10 +22,10 @@ button:active {
 }
 
 div {
-    width: 380px;
     overflow: hidden;
     display: flex;
     align-items: center;
+    justify-content: center;
     flex-direction: column;
     position: relative;
 }
@@ -67,6 +67,9 @@ div {
 
 .game {
     margin: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #roulette-base::before {
