@@ -40,6 +40,12 @@
         cursor: pointer;
     }
 
+    #gamecontent {
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        height: 200px;
+    }
 </style>
 <body>
 <header class="text-center">
@@ -62,7 +68,12 @@
     <!-- 사다리게임 -->
     <div class="ladder" style="display: none;">
         <h1>사다리게임</h1>
-        <p>&lt; 돌려돌려 사다리 &gt;</p>
+        <p>&lt; 인생은 랜덥! &gt;</p>
+    </div>
+    <!--벽돌깨기 -->
+    <div class="roulette" style="display: none;">
+        <h1>룰렛게임</h1>
+        <p>&lt; 돌려돌려 돌림판 &gt;</p>
     </div>
 </header>
 <main class="text-center">
@@ -83,23 +94,29 @@
                 <img src="./img/main/ladderlogo.png" alt="사다리">
                 <p>&lt; 사다리 &gt;</p>
             </div>
-            <div class="gamelogo" id="bricklogo">
-                <img src="./img/main/rpslogo.png" alt="사다리">
-                <p>&lt; 벽돌깨기 &gt;</p>
+            <div class="gamelogo" id="roulettelogo">
+                <img src="./img/main/roulettelogo.png" alt="룰렛">
+                <p>&lt; 룰렛게임 &gt;</p>
             </div>
         </div>
     </div>
-    <!-- 가위바위보 -->
-    <div class="rps" style="display: none;">
-        <p>BJ와 유저가 함께하는 가위, 바위, 보<br>카드를 선택해서 BJ를 이겨보세요</p>
-    </div>
-    <!-- 육하원칙 -->
-    <div class="wh" style="display: none;">
-        <p>육하원칙 컨텐츠를 랜덤으로 뽑아서<br>재밌게 방송해보세요</p>
-    </div>
-    <!-- 사다리게임 -->
-    <div class="ladder" style="display: none;">
-        <p>사다리 게임을 운명을 맡겨보세요</p>
+    <div id="gamecontent">
+        <!-- 가위바위보 -->
+        <div class="rps" style="display: none;">
+            <p>BJ와 유저가 함께하는 가위, 바위, 보<br>카드를 선택해서 BJ를 이겨보세요</p>
+        </div>
+        <!-- 육하원칙 -->
+        <div class="wh" style="display: none;">
+            <p>육하원칙 컨텐츠를 랜덤으로 뽑아서<br>재밌게 방송해보세요</p>
+        </div>
+        <!-- 사다리게임 -->
+        <div class="ladder" style="display: none;">
+            <p>추억의 사다리 게임!<br>참여자 수가 많아질수록<br>사다리는 복잡해져요</p>
+        </div>
+        <!-- 룰렛게임 -->
+        <div class="roulette" style="display: none;">
+            <p>오늘은 뭘 먹지? 뭘 하지?<br>선택이 어려울 때 돌려보세요!</p>
+        </div>
     </div>
 </main>
 <!--JavaScript at end of body for optimized loading-->

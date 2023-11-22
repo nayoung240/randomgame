@@ -6,6 +6,7 @@ const START_GAME = 'start_game';
 const rpslogo = document.querySelector('#rpslogo');
 const whlogo = document.querySelector('#whlogo');
 const ladderlogo = document.querySelector('#ladderlogo');
+const roulettelogo = document.querySelector('#roulettelogo');
 const backbtn = document.querySelector('#backbtn');
 
 const handleBroadcastReceived = (action, message, fromId) => {
@@ -18,8 +19,6 @@ const handleBroadcastReceived = (action, message, fromId) => {
             window.location = 'user_rps_screen.html';
         }
     }
-
-    console.log('userscreen', action, message, fromId);
 }
 
 extensionSdk.broadcast.listen(handleBroadcastReceived);
@@ -56,11 +55,20 @@ const setLadderDisplay = (action) => {
     });
 }
 
+const setRouletteDisplay = (action) => {
+    const rouletteClasses = document.querySelectorAll('.roulette');
+
+    rouletteClasses.forEach(function(el) {
+        el.style.display = action === 'show' ? '' : 'none';
+    });
+}
+
 const showGuide = (guide) => {
     let defaultDisplay = 'hide';
     let rpsDisplay = 'hide';
     let whDisplay = 'hide';
     let ladderDisplay = 'hide';
+    let rouletteDisplay = 'hide';
 
     switch (guide) {
         case 'rps':
@@ -72,6 +80,9 @@ const showGuide = (guide) => {
         case 'ladder':
             ladderDisplay = 'show';
             break;
+        case 'roulette':
+            rouletteDisplay = 'show';
+            break;
         default:
             defaultDisplay = 'show';
             break;
@@ -81,6 +92,7 @@ const showGuide = (guide) => {
     setRpsDisplay(rpsDisplay);
     set5w1hDisplay(whDisplay);
     setLadderDisplay(ladderDisplay);
+    setRouletteDisplay(rouletteDisplay);
 
     backbtn.style.display = '';
 }
@@ -98,6 +110,11 @@ whlogo.addEventListener('click', function() {
 // 사다리 안내
 ladderlogo.addEventListener('click', function() {
     showGuide('ladder');
+});
+
+// 룰렛게임 안내
+roulettelogo.addEventListener('click', function() {
+    showGuide('roulette');
 });
 
 // 뒤로가기 버튼
