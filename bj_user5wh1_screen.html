@@ -11,7 +11,7 @@
     @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500;600&display=swap');
 
     body {
-        background-color: #2e2e2e;
+        background-color: #252525;
         color: white;
         font-family: 'IBM Plex Sans KR', sans-serif;
         padding: 10px;
@@ -21,38 +21,34 @@
         margin-top: 10px;
     }
 
-    .btn {
+    /* .btn {
         border-radius: 50%;
         width: 70px;
         height: 70px;
         margin: 10px;
         padding: 5px;
-    }
+    } */
 
     #chatlist {
         width: 300px;
     }
 
     .on {
-        background-color: #fcc00f;
-        border: none;
+        border-radius: 6px;
+        background-color: #f7f3e1;
     }
 
     .off {
-        background-color: #eb3251;
+        background-color: transparent;
         border: none;
     }
 
     #nextbtn { 
-        width: 50px; 
-        height: 100px; 
-        border-radius: 150px 0 0 150px;
-        border: none;
+        width: 50px; height: 100px; 
+        border-radius: 150px 0 0 150px; border: none;
         background-color: #ffffffaf;
-        right: 0%;
-        top: 40%;
-        position:fixed;
-        z-index:1000;
+        right: 0%; top: 40%;
+        position:fixed; z-index:1000;
     }
 
     #nextbtn:hover {
@@ -62,7 +58,7 @@
     .guide {
         border: 2px solid rgba(0,0,0,.125);
         border-radius: 3.25rem;
-        margin-top: 20px;
+        margin: 22px 22px 0px 22px;
     }
 
     #guide5w {
@@ -88,6 +84,18 @@
     #guidebj h4 {
         color:  #0099ff;
     }
+
+    #starcnt {
+        width: 500px; height: 25px;
+        font-size: 15px;
+        border: 0; border-radius: 15px; outline: none;
+        padding-left: 10px;
+        background-color: #a6dcff
+    }
+
+    #w_title, #w_subtitle {
+        font-weight: 600;
+    }
 </style>
 <body>
     <button id="nextbtn">NEXT</button>
@@ -99,8 +107,8 @@
             <h1>사용설명서</h1>
         </div>
         <div class="process" style="display: none;">
-            <h1 id="w_title">1. 언제 ?</h1><br>
-            <p id="w_subtitle">언제에 해당하는 채팅을 보내주세요!</p>
+            <h1 id="w_title">1. 언제 ?</h1>
+            <p id="w_subtitle">후보에 넣고 싶은 채팅을 보내주세요!<br>포함하고 싶지 않은 항목은 클릭하여 비활성화 해주세요.</p>
         </div>
     </header>
     <main class="text-center">
@@ -117,7 +125,7 @@
                 <p>&bull; 마지막은 위에서 진행하면서 선택된 후보들로<br>랜덤 뽑기를 진행할 수 있습니다.</p>
             </div>
             <div id="guidebj" class="guide">
-                <br><h4>유저 자격요건 설정</h4><br>
+                <br><h4>유저 자격요건 설정하기</h4><br>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="user" id="user1" value="user1" checked>
                     <label class="form-check-label" for="user1">모든 유저</label>
@@ -129,19 +137,42 @@
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="user" id="user3" value="user3">
                     <label class="form-check-label" for="user3">팬가입한 유저</label>
+                </div><br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="user" id="user4" value="user3">
+                    <label class="form-check-label" for="user4">별풍선 선물 유저</label>
+                    &nbsp<input type="number" id="starcnt" style="width: 65px;" min="0" value="0">&nbsp개
                 </div><br><br>
             </div>
         </div>
         <div class="process" style="display: none;">
             <div class="chatdiv d-flex align-items-center flex-column mb-3">
-                <div class="p-1"><button class="chat on">24242424</button></div>
+                <div class="p-1"><button class="chat on">화장실에서</button></div>
                 <div class="p-1"><button class="chat on">24242424242424242424242424242424242424242424242422</button></div>
-                <div class="p-1"><button class="chat off">24242424</button></div>
-                <div class="p-1"><button class="chat on">24242424</button></div>
-                <div class="p-1"><button class="chat on">24242424</button></div>
-                <div class="p-1"><button class="chat on">24242424</button></div>
-                <div class="p-1"><button class="chat on">24242424</button></div>
-                <div class="p-1"><button class="chat on">24242424</button></div>
+                <div class="p-1"><button class="chat off">인생네컷 찍기</button></div>
+                <div class="p-1"><button class="chat on">카카오톡 채팅 창 첫번째 사람이랑</button></div>
+                <div class="p-1"><button class="chat on">인생네컷 찍기</button></div>
+                <div class="p-1"><button class="chat on">인생네컷 찍기</button></div>
+                <div class="p-1"><button class="chat on">인생네컷 찍기</button></div>
+                <div class="p-1"><button class="chat on">인생네컷 찍기</button></div>
+                <div class="p-1"><button class="chat on">인생네컷 찍기</button></div>
+                <div class="p-1"><button class="chat on">인생네컷 찍기</button></div>
+                <div class="p-1"><button class="chat on">인생네컷 찍기</button></div>
+                <div class="p-1"><button class="chat on">인생네컷 찍기</button></div>
+                <div class="p-1"><button class="chat on">인생네컷 찍기</button></div>
+                <div class="p-1"><button class="chat on">인생네컷 찍기</button></div>
+                <div class="p-1"><button class="chat on">인생네컷 찍기</button></div>
+                <div class="p-1"><button class="chat on">인생네컷 찍기</button></div>
+                <div class="p-1"><button class="chat on">인생네컷 찍기</button></div>
+                <div class="p-1"><button class="chat on">인생네컷 찍기</button></div>
+                <div class="p-1"><button class="chat on">인생네컷 찍기</button></div>
+                <div class="p-1"><button class="chat on">인생네컷 찍기</button></div>
+                <div class="p-1"><button class="chat on">인생네컷 찍기</button></div>
+                <div class="p-1"><button class="chat on">인생네컷 찍기</button></div>
+                <div class="p-1"><button class="chat on">안녕하세요반갑습니다안녕하세요반갑습니다안녕하세요반갑습니다안녕하세요반갑습니다안녕하세요반갑습니다</button></div>
+                <div class="p-1"><button class="chat on">안녕하세요반갑습니다</button></div>
+                <div class="p-1"><button class="chat on">안녕하세요반갑습니다</button></div>
+      
             </div>
         </div>
     </main>
