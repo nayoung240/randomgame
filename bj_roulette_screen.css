@@ -60,7 +60,29 @@ div {
     /*margin: 20px;*/
 }
 
-.input-list input{
+.input-list input {
     margin: 5px;
     width: 80%;
+}
+
+.game {
+    margin: 30px;
+}
+
+#roulette-base::before {
+    margin-top: 5px;
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 50px;
+    border-radius: 5px;
+    background: #000;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+}
+
+#roulette-base {
+    margin: 5px;
 }
