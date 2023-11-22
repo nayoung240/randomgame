@@ -11,7 +11,7 @@
     @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500&display=swap');
 
     body {
-        background-color: #CB6CE6;
+        background-color: #a357e1;
         color: white;
         font-family: 'IBM Plex Sans KR', sans-serif;
         padding: 10px;
@@ -19,6 +19,11 @@
 
     header, main, footer {
         margin-top: 10px;
+    }
+
+    .header-img img{
+        width: 200px;
+        margin: 10px;
     }
 
     .gamecard {
@@ -69,7 +74,7 @@
             <div class="d-flex align-items-start" >
                 <img id="gohomebtn" src="./img/go-home.png" style="margin-left: auto; cursor: pointer" alt="홈으로 가기">
             </div>
-            <h1 class="step_title">안내면 진다!</h1>
+            <div class="header-img"><img src="./img/rps/rspgameheader.png"></div>
             <p>&lt; 카드를 선택해주세요 &gt;</p>
         </div>
         <!-- 2.기다리는 화면 -->
