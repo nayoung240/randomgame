@@ -158,10 +158,10 @@ const handleBroadcastReceived = (action, message, fromId) => {
     // 게임 시작 액션
     if(action === START_GAME) {
         if(message == 'main') {
-            window.location = 'user_screen.html';
+            window.location = './user_screen.html';
         }
         else if(message == 'rps') {
-            window.location = 'user_rps_screen.html';
+            window.location = './user_rps_screen.html';
         }
     }
     // 초기 타이머 액션
