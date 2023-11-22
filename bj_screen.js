@@ -6,7 +6,7 @@ const START_GAME = 'start_game';
 const rpslogo = document.querySelector('#rpslogo');
 const whlogo = document.querySelector('#whlogo');
 const ladderlogo = document.querySelector('#ladderlogo');
-const bricklogo = document.querySelector('#bricklogo');
+const roulettelogo = document.querySelector('#roulettelogo');
 const backbtn = document.querySelector('#backbtn');
 
 extensionSdk.broadcast.send(START_GAME, 'main');
@@ -43,10 +43,10 @@ const setLadderDisplay = (action) => {
     });
 }
 
-const setBrickDisplay = (action) => {
-    const brickClasses = document.querySelectorAll('.brick');
+const setRouletteDisplay = (action) => {
+    const rouletteClasses = document.querySelectorAll('.roulette');
 
-    brickClasses.forEach(function(el) {
+    rouletteClasses.forEach(function(el) {
         el.style.display = action === 'show' ? '' : 'none';
     });
 }
@@ -56,7 +56,7 @@ const showGuide = (guide) => {
     let rpsDisplay = 'hide';
     let whDisplay = 'hide';
     let ladderDisplay = 'hide';
-    let brickDisplay = 'hide';
+    let rouletteDisplay = 'hide';
 
     switch (guide) {
         case 'rps':
@@ -68,8 +68,8 @@ const showGuide = (guide) => {
         case 'ladder':
             ladderDisplay = 'show';
             break;
-        case 'brick':
-            brickDisplay = 'show';
+        case 'roulette':
+            rouletteDisplay = 'show';
             break;
         default:
             defaultDisplay = 'show';
@@ -80,7 +80,7 @@ const showGuide = (guide) => {
     setRpsDisplay(rpsDisplay);
     set5w1hDisplay(whDisplay);
     setLadderDisplay(ladderDisplay);
-    setBrickDisplay(brickDisplay);
+    setRouletteDisplay(rouletteDisplay);
     
 
     backbtn.style.display = '';
@@ -101,12 +101,12 @@ ladderlogo.addEventListener('click', function() {
     showGuide('ladder');
 });
 
-//벽돌깨기 안내
-bricklogo.addEventListener('click', function() {
-    showGuide('brick');
+// 룰렛게임 안내
+roulettelogo.addEventListener('click', function() {
+    showGuide('roulette');
 });
 
 // 뒤로가기 버튼
 backbtn.addEventListener('click', function() {
-    location.reload();
+    window.location.replace('./bj_screen.html');
 });
