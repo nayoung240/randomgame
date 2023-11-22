@@ -3,20 +3,31 @@ const optNum = document.querySelector("#optNum");
 const ctx = $c.getContext(`2d`);
 const rultSpace1 = document.querySelector("#rultSpace1");
 const rultSpace2 = document.querySelector("#rultSpace2");
+const rultResult = document.querySelector("#rouletteResult");
 
 let product = [rultSpace1.value, rultSpace2.value];
 
 const colors = ["#d3536e", "#e3623f", "#f6b039", "#eee645"
     , "#88d560", "#489d7d", "#55aed5", "#4f4277"];
 
-const makeProduct = () => {
+const init = () => {
+    // 유저 화면은 메인으로 보내기
+    const SDK = window.AFREECA.ext;
+    const extensionSdk = SDK();
+    const START_GAME = 'start_game';
 
-    // const product = [rultSpace1.value];
-    // return [2,3];
+    // 유저 화면은 메인으로 보내기
+    extensionSdk.broadcast.send(START_GAME, 'main');
 }
 
+// 룰렛 생성
 const newMake = () => {
-    // const product = makeProduct();
+    const rultListElmnts = document.getElementsByName('rultSpace');
+    product = [];
+    for (let i = 0; i < rultListElmnts.length; i++) {
+        product.push(rultListElmnts[i].value);
+    }
+
     const [cw, ch] = [$c.width / 2, $c.height / 2];
     const arc = Math.PI / (product.length / 2);
 
@@ -53,7 +64,11 @@ const newMake = () => {
         ctx.rotate(angle + Math.PI / 2);
 
         product[i].split(" ").forEach((text, j) => {
-            ctx.fillText(text, 0, 30 * j);
+            let formatText = text;
+            if (text.length > 10) {
+                formatText = formatText.substr(0, 10) + '...';
+            }
+            ctx.fillText(formatText, 0, 30 * j);
         });
 
         ctx.restore();
@@ -81,7 +96,9 @@ const rotate = () => {
         $c.style.transform = `rotate(-${rotate}deg)`;
         $c.style.transition = `2s`;
         const result = product[ran];
-        setTimeout(() => console.log(result), 2000);
+        setTimeout(() =>
+            rultResult.textContent = result
+            , 2000);
     }, 1);
 };
 
@@ -91,7 +108,9 @@ const clickPlus = () => {
         return;
     }
     optNum.value++;
-    product.push("3")
+    // input박스 추가
+    document.getElementById('spaceList').innerHTML += createInput(optNum.value);
+    // 룰렛 재생성
     newMake();
 }
 
@@ -101,7 +120,28 @@ const clickMinus = () => {
         return;
     }
     optNum.value--;
+    deleteInput(optVal);
+    // 룰렛 재생성
     newMake();
 }
 
+const createInput = (idIdx) => {
+    return "<input id='rultSpace" + idIdx + "' type='text' name='rultSpace' value='옵션"
+        + idIdx + "' class='form-control' oninput='changeRultSpace(this)' maxlength=\"50\">";
+}
+
+const deleteInput = (idIdx) => {
+    if (product.length <= 2) {
+        return;
+    }
+    const elemntId = "rultSpace" + idIdx;
+    const elemnt = document.getElementById(elemntId);
+    elemnt.remove();
+}
+
+const changeRultSpace = (obj) => {
+    newMake();
+}
+
+init();
 newMake();
