@@ -4,6 +4,7 @@ const ctx = $c.getContext(`2d`);
 const rultSpace1 = document.querySelector("#rultSpace1");
 const rultSpace2 = document.querySelector("#rultSpace2");
 const rultResult = document.querySelector("#rouletteResult");
+const homebtn = document.querySelector('#homebtn');
 
 let product = [rultSpace1.value, rultSpace2.value];
 
@@ -65,7 +66,7 @@ const newMake = () => {
 
         product[i].split(" ").forEach((text, j) => {
             let formatText = text;
-            if (text.length > 10) {
+            if (text.length > 9) {
                 formatText = formatText.substr(0, 10) + '...';
             }
             ctx.fillText(formatText, 0, 30 * j);
@@ -142,6 +143,10 @@ const deleteInput = (idIdx) => {
 const changeRultSpace = (obj) => {
     newMake();
 }
+
+homebtn.addEventListener('click', function() {
+    window.location.replace('./bj_screen.html');
+});
 
 init();
 newMake();
