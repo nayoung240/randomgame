@@ -53,9 +53,9 @@ html, body{
 .landing{
     width: 100%;
     height: 100%;
-    background-color: #fff;
+    background-color: #fbf7ba;
     position: fixed;
-    top: 40px;
+    top: 0px;
     left: 0;
     z-index: 999;
     -webkit-transition: opacity .3s ease-in-out;
@@ -142,11 +142,12 @@ html, body{
 }
 .landing-form{
     position: absolute;
-    top:280px;
+    top:350px;
 }
 .landing-form input{
     text-align: center;
     border-bottom: 1px solid #ddd;
+    background-color: transparent;
 }
 .landing-form label{
     display: block;
@@ -154,7 +155,7 @@ html, body{
 }
 .landing-form .button{
     margin-top: 40px;
-    width: 80px;
+    width: 120px;
 }
 .dim{
     width: 100%;
@@ -164,7 +165,6 @@ html, body{
     top: 0;
     left: 0;
 }
-
 
 /* Button */
 .button {
@@ -233,7 +233,7 @@ input:focus         { outline:none; }
 
 /* LABEL ======================================= */
 label                {
-    color:#999; 
+    color:black; 
     font-weight:normal;
     position:absolute;
     pointer-events:none;
@@ -248,7 +248,7 @@ label                {
 input:focus ~ label, input:valid ~ label        {
     top:-40px;
     font-size:14px;
-    color:#52ae87;
+    color:#868686;
 }
 
 /* BOTTOM BARS ================================= */
@@ -259,7 +259,7 @@ input:focus ~ label, input:valid ~ label        {
     width:0;
     bottom:1px; 
     position:absolute;
-    background:#52ae87; 
+    background:#f58bcb; 
     transition:0.2s ease all; 
     -moz-transition:0.2s ease all; 
     -webkit-transition:0.2s ease all;
@@ -276,35 +276,17 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
     width:50%;
 }
 
-/* HIGHLIGHTER ================================== */
-.highlight {
-    position:absolute;
-    height:60%; 
-    width:100px; 
-    top:25%; 
-    left:0;
-    pointer-events:none;
-    opacity:0.5;
-}
-
-/* active state */
-input:focus ~ .highlight {
-    -webkit-animation:inputHighlighter 0.3s ease;
-    -moz-animation:inputHighlighter 0.3s ease;
-    animation:inputHighlighter 0.3s ease;
-}
-
 /* ANIMATIONS ================ */
 @-webkit-keyframes inputHighlighter {
-    from { background:#52ae87; }
+    from { background:#f58bcb; }
     to    { width:0; background:transparent; }
 }
 @-moz-keyframes inputHighlighter {
-    from { background:#52ae87; }
+    from { background:#f58bcb; }
     to    { width:0; background:transparent; }
 }
 @keyframes inputHighlighter {
-    from { background:#52ae87; }
+    from { background:#f58bcb; }
     to    { width:0; background:transparent; }
 }
 
@@ -315,27 +297,24 @@ input:focus ~ .highlight {
 }
 
 #go {
-    margin-bottom: 15px;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
     cursor: pointer;
-    background-color: #f58bcb;
 }
 
 #backbtn {
-    margin-top: 10px;
+    margin-top: 10px; margin-left: 10px;
     width: 28px;
-    margin-left: 10px;
     cursor: pointer;
-    filter: invert(77%) sepia(33%) saturate(5288%) hue-rotate(99deg) brightness(97%) contrast(102%);
+    position: fixed;
+    top: 0px; left: 0;
+    z-index: 1000;
+    display: none;
 }
 
 #homebtn {
-    float: right;
-    margin-top: 10px;
+    margin-top: 10px; margin-right: 10px;
     width: 28px;
-    margin-right: 10px;
     cursor: pointer;
-    filter: invert(77%) sepia(33%) saturate(5288%) hue-rotate(99deg) brightness(97%) contrast(102%);
+    position: fixed;
+    top: 0px; right: 0;
+    z-index: 1000;
 }
