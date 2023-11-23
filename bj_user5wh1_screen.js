@@ -90,6 +90,32 @@ const changeTitle = (view) => {
     document.querySelector('#w_title').innerText = nextTitle[view];
 }
 
+const setSlotEvent = () => {
+    const stopBtn = document.querySelector('#stopBtn');
+    const resetBtn = document.querySelector('#resetBtn');
+    const itemWhen = document.querySelector('#itemWhen');
+    const itemWhere = document.querySelector('#itemWhere');
+    const itemWho = document.querySelector('#itemWho');
+    const itemHow = document.querySelector('#itemHow');
+    const itemWhat = document.querySelector('#itemWhat');
+    
+    const randomSlot = setInterval(function () {
+        itemWhen.innerText = inputArr.when[Math.floor(Math.random() * inputArr.when.length)];
+        itemWhere.innerText = inputArr.where[Math.floor(Math.random() * inputArr.where.length)];
+        itemWho.innerText = inputArr.who[Math.floor(Math.random() * inputArr.who.length)];
+        itemHow.innerText = inputArr.how[Math.floor(Math.random() * inputArr.how.length)];
+        itemWhat.innerText = inputArr.what[Math.floor(Math.random() * inputArr.what.length)];
+    }, 100);
+    
+    stopBtn.addEventListener('click', function() {
+        clearInterval(randomSlot);
+    })
+    
+    resetBtn.addEventListener('click', function() {
+        clearInterval(randomSlot);
+    })
+}
+
 // Next 버튼
 nextbtn.addEventListener('click', function() {
     const view = ['guide', 'when', 'where', 'who', 'how', 'what', 'last'];
@@ -114,6 +140,7 @@ nextbtn.addEventListener('click', function() {
         case 'what':
             pushChatOn(view[viewIdx]);
             showLastView();
+            setSlotEvent();
             break;
         case 'last':
             break;
