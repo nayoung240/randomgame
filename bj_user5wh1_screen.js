@@ -5,6 +5,7 @@ const maxChat = 100;
 let chatCnt = 0;
 let viewIdx = 0;
 let isProcessing = false;
+let randomSlot = null
 
 const nextbtn = document.querySelector('#nextbtn');
 const homebtn = document.querySelector('#homebtn');
@@ -79,7 +80,7 @@ const setUserSetting = () => {
         }
     }) 
 
-    console.log('userSetting', userSetting)
+    // console.log('userSetting', userSetting)
 }
 
 const setStartButtonDisplay = (action) => {
@@ -89,6 +90,7 @@ const setStartButtonDisplay = (action) => {
 
 const pushChatOn = (view) => {
     for (const chat in checkChatList) {
+        // true인 채팅만 저장하기
         if(checkChatList[chat]) {
             inputArr[view].push(chat);
         }
@@ -96,7 +98,6 @@ const pushChatOn = (view) => {
 
     checkChatList = {}; // 초기화
 
-    // console.log(userSetting)
     // console.log(inputArr)
 }
 
@@ -110,15 +111,13 @@ const changeTitle = (view) => {
 }
 
 const setSlotEvent = () => {
-    const stopBtn = document.querySelector('#stopBtn');
-    const resetBtn = document.querySelector('#resetBtn');
     const itemWhen = document.querySelector('#itemWhen');
     const itemWhere = document.querySelector('#itemWhere');
     const itemWho = document.querySelector('#itemWho');
     const itemHow = document.querySelector('#itemHow');
     const itemWhat = document.querySelector('#itemWhat');
 
-    const randomSlot = setInterval(function () {
+    randomSlot = setInterval(function () {
         if(inputArr.when.length) {
             itemWhen.innerText = inputArr.when[Math.floor(Math.random() * inputArr.when.length)];
         }
@@ -139,15 +138,15 @@ const setSlotEvent = () => {
             itemWhat.innerText = inputArr.what[Math.floor(Math.random() * inputArr.what.length)];
         }
     }, 100);
-    
-    stopBtn.addEventListener('click', function() {
-        clearInterval(randomSlot);
-    })
-    
-    resetBtn.addEventListener('click', function() {
-        clearInterval(randomSlot);
-    })
 }
+
+document.querySelector('#stopBtn').addEventListener('click', function() {
+    clearInterval(randomSlot);
+})
+
+document.querySelector('#resetBtn').addEventListener('click', function() {
+    setSlotEvent();
+})
 
 // 채팅 개수 현황
 const changeCntView = (action) => {
@@ -164,7 +163,7 @@ const initProcessChatView = () => {
 
 // 익스텐션 통신
 const handleChatInfoReceived = (action, message) => {
-    console.log(action, message)
+    // console.log(action, message)
 
     // 수집중이 아닐때는 저장하지 않는다.
     if(!isProcessing) return;
