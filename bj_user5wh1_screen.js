@@ -1,6 +1,8 @@
 const SDK = window.AFREECA.ext;
 const extensionSdk = SDK();
 const START_GAME = 'start_game';
+const PROCESS = 'process';
+const SLOT = 'slot';
 const maxChat = 100;
 let chatCnt = 0;
 let viewIdx = 0;
@@ -12,8 +14,9 @@ const homebtn = document.querySelector('#homebtn');
 const chatdiv = document.querySelector('.chatdiv');
 const w_start = document.querySelector('#w_start');
 
+const hTitle = {when: '언제 ?', where: '어디서 ?', who: '누가 ?', how: '어떻게 ?', what: '무엇을 ?'};
 let userSetting = {
-    type: '', star: 0
+    type: '', star: 1
 };
 let inputArr = {
     when: [], where: [], who: [], how: [], what: []
@@ -21,7 +24,7 @@ let inputArr = {
 let checkChatList = {};
 let starGivedUserIdArr = [];
 
-extensionSdk.broadcast.send(START_GAME, 'main');
+extensionSdk.broadcast.send(START_GAME, 'user5wh1');
 
 const setDefaultDisplay = (action) => {
     const defaultClasses = document.querySelectorAll('.default');
@@ -102,8 +105,6 @@ const pushChatOn = (view) => {
 }
 
 const changeTitle = (view) => {
-    const hTitle = {where: '어디서 ?', who: '누가 ?', how: '어떻게 ?', what: '무엇을 ?'};
-
     document.querySelector('#w_title img').src = `./img/5wh1user/${view}.png`;
     document.querySelector('#w_title span').innerText = hTitle[view];
 
@@ -237,6 +238,8 @@ const setChatClick = (target) => {
 // Next 버튼
 nextbtn.addEventListener('click', function() {
     const view = ['guide', 'when', 'where', 'who', 'how', 'what', 'last'];
+    const nowView = view[viewIdx];
+    const nextView = view[viewIdx+1];
 
     // 초기화
     initProcessChatView();
@@ -249,21 +252,43 @@ nextbtn.addEventListener('click', function() {
         case 'when':
         case 'where':
         case 'who':
-            changeTitle(view[viewIdx+1]);
-            pushChatOn(view[viewIdx]);
+            changeTitle(nextView);
+            pushChatOn(nowView);
             break;
         case 'how':
-            changeTitle(view[viewIdx+1]);
-            pushChatOn(view[viewIdx]);
+            changeTitle(nextView);
+            pushChatOn(nowView);
             nextbtn.innerText = '완료!';
             break;
         case 'what':
-            pushChatOn(view[viewIdx]);
+            pushChatOn(nowView);
             showLastView();
             setSlotEvent();
             break;
         case 'last':
             break;
+    }
+
+    // 유저 화면도 같이 바꾸기
+    if(nextView == 'last') {
+        extensionSdk.broadcast.send(SLOT);
+    }
+    else {
+        let usertypemsg = '모든 유저';
+
+        switch (userSetting.type) {
+            case 'login':
+                usertypemsg = '로그인 유저';
+                break;
+            case 'fan':
+                usertypemsg = '팬가입 유저';
+                break;
+            case 'star':
+                usertypemsg = `별풍선 ${userSetting.star}개 이상 선물한 유저`;
+                break;
+        }
+
+        extensionSdk.broadcast.send(PROCESS, {viewtype: hTitle[nextView], usertype: usertypemsg});
     }
 
     viewIdx += 1;
