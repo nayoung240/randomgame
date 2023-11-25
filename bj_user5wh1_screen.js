@@ -1,7 +1,7 @@
 const SDK = window.AFREECA.ext;
 const extensionSdk = SDK();
 const START_GAME = 'start_game';
-const maxChat = 50;
+const maxChat = 100;
 let chatCnt = 0;
 let viewIdx = 0;
 let isProcessing = false;
@@ -167,7 +167,7 @@ const handleChatInfoReceived = (action, message) => {
             // 빈채팅 제거
             if(!chat) return;
 
-            chatdiv.append(`<div class="p-1"><button class="chat on">${chat}</button></div>`);
+            chatdiv.insertAdjacentHTML('beforeend', `<div class="p-1"><button class="chat on">${chat}</button></div>`);
             chatCnt += 1;
 
             // 최대개수가 넘으면 중단
