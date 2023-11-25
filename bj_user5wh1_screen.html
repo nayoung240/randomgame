@@ -21,14 +21,6 @@
         margin-top: 10px;
     }
 
-    /* .btn {
-        border-radius: 50%;
-        width: 70px;
-        height: 70px;
-        margin: 10px;
-        padding: 5px;
-    } */
-
     #chatlist {
         width: 300px;
     }
@@ -62,27 +54,19 @@
     }
 
     #guide5w {
-        border-color: #ff9900;
-    }
-
-    #guide5w h4 {
-        color:  #ff9900;
-    }
-
-    #guidelast {
         border-color: #00ffc8;
     }
 
-    #guidelast h4 {
+    #guide5w h4 {
         color:  #00ffc8;
     }
 
     #guidebj {
-        border-color: #0099ff;
+        border-color: #6aceff;
     }
 
-    #guidebj h4 {
-        color:  #0099ff;
+    #guidebj h4, .form-check-label {
+        color:  #6aceff;
     }
 
     #starcnt {
@@ -177,12 +161,13 @@
             <img id="homebtn" src="./img/go-home.png" alt="홈으로가기">
         </div>
         <div class="default">
-            <h1>사용설명서</h1>
+            <img src="./img/5wh1user/user-guide.png" alt="채팅받기시작">
         </div>
-        <div class="process" style="display: none; height: 150px;">
+        <div class="process" style="display: none; height: 170px;">
             <h1 id="w_title"><img src="./img/5wh1user/when.png" alt="진행단계"><span>언제 ?</span></h1>
             <p id="w_subtitle">후보에 넣고 싶은 채팅을 보내주세요!<br>포함하고 싶지 않은 항목은 클릭하여 비활성화 해주세요.<br>START 버튼을 누르면 채팅 수집이 시작됩니다.</p>
             <img id="w_start" src="./img/5wh1user/start-button.png" alt="채팅받기시작">
+            <h4 id="w_cnt" style="display: none; color: #00ece3">0/100</h4>
         </div>
         <div class="last" style="display: none;">
             <div class="gametitle">
@@ -194,18 +179,17 @@
     <main class="text-center">
         <div class="default">
             <div id="guide5w" class="guide">
-                <br><h4>언제, 어디서, 누가, 어떻게, 무엇을</h4><br>
+                <br><h4>언제&rarr;어디서&rarr;누가&rarr;어떻게&rarr;무엇을</h4><br>
                 <p>&bull; 위의 순서대로 육하원칙 후보를 정해야합니다.</p>
                 <p>&bull; 자격요건을 갖춘 유저들이 채팅을 보내면 목록에 추가됩니다.</p>
                 <p>&bull; 목록은 선착순 50개까지 받을 수 있습니다.</p>
                 <p>&bull; BJ가 제거하고싶은 목록은 클릭하여 비활성화할 수 있습니다.</p>
-            </div>
-            <div id="guidelast" class="guide">
-                <br><h4>랜덤뽑기</h4><br>
-                <p>&bull; 마지막은 위에서 진행하면서 선택된 후보들로<br>랜덤 뽑기를 진행할 수 있습니다.</p>
+                <br><h4>&rarr;육하원칙</h4>
+                <p>&bull; 위에서 진행하면서 선택된 후보들로<br>육하원칙을 진행하게 됩니다.</p>
             </div>
             <div id="guidebj" class="guide">
-                <br><h4>유저 자격요건 설정하기</h4><br>
+                <br><h4>입력받을 유저 설정하기</h4>
+                <p>육하원칙 후보 채팅들을 받기 원하는 유저타입을 설정해주세요!</p><br>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="user" id="user1" value="all" checked>
                     <label class="form-check-label" for="user1">모든 유저</label>

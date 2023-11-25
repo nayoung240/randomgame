@@ -8,8 +8,8 @@ let isProcessing = false;
 
 const nextbtn = document.querySelector('#nextbtn');
 const homebtn = document.querySelector('#homebtn');
-const chatClasses = document.querySelectorAll('.chat');
 const chatdiv = document.querySelector('.chatdiv');
+const w_start = document.querySelector('#w_start');
 
 let userSetting = {
     type: '', star: 0
@@ -17,6 +17,8 @@ let userSetting = {
 let inputArr = {
     when: [], where: [], who: [], how: [], what: []
 };
+let checkChatList = {};
+let starGivedUserIdArr = [];
 
 extensionSdk.broadcast.send(START_GAME, 'main');
 
@@ -72,7 +74,7 @@ const setUserSetting = () => {
     userList.forEach((node) => {
         if(node.checked)  {
             userSetting.type = node.value;
-            userSetting.star = document.querySelector('#starcnt').value;
+            userSetting.star = Number(document.querySelector('#starcnt').value);
             return;
         }
     }) 
@@ -80,15 +82,22 @@ const setUserSetting = () => {
     console.log('userSetting', userSetting)
 }
 
+const setStartButtonDisplay = (action) => {
+    w_start.style.display = action == 'show' ? '' : 'none';
+    document.querySelector('#w_cnt').style.display = action == 'show' ? 'none' : '';
+}
+
 const pushChatOn = (view) => {
-    const chatOn = document.querySelectorAll('.chat.on');
+    for (const chat in checkChatList) {
+        if(checkChatList[chat]) {
+            inputArr[view].push(chat);
+        }
+    }
 
-    chatOn.forEach((node) => {
-        inputArr[view].push(node.innerText);
-    })
+    checkChatList = {}; // 초기화
 
-    console.log(userSetting)
-    console.log(inputArr)
+    // console.log(userSetting)
+    // console.log(inputArr)
 }
 
 const changeTitle = (view) => {
@@ -96,6 +105,8 @@ const changeTitle = (view) => {
 
     document.querySelector('#w_title img').src = `./img/5wh1user/${view}.png`;
     document.querySelector('#w_title span').innerText = hTitle[view];
+
+    setStartButtonDisplay('show');
 }
 
 const setSlotEvent = () => {
@@ -138,6 +149,20 @@ const setSlotEvent = () => {
     })
 }
 
+// 채팅 개수 현황
+const changeCntView = (action) => {
+    chatCnt = action == 'add' ? chatCnt+1 : chatCnt-1;
+    document.querySelector('#w_cnt').innerText = `${chatCnt}/${maxChat}`;
+}
+
+const initProcessChatView = () => {
+    chatdiv.textContent = '';
+    chatCnt = 0;
+    isProcessing = false;
+    document.querySelector('#w_cnt').innerText = `0/${maxChat}`;
+}
+
+// 익스텐션 통신
 const handleChatInfoReceived = (action, message) => {
     console.log(action, message)
 
@@ -148,16 +173,15 @@ const handleChatInfoReceived = (action, message) => {
         case 'MESSAGE':
             const userInfo = message.userStatus;
 
-            // 유저 자격요건 설정에 맞는 유저인지 체크
+            // 유저 자격요건 설정에 맞지 않으면 종료
             if(userSetting.type == 'login') {
-                if(!userInfo.isGuest) {
-                    return;
-                }
+                if(!userInfo.isGuest) return;
             }
             else if(userSetting.type == 'fan') {
-                if(!userInfo.isFan) {
-                    return;
-                }
+                if(!userInfo.isFan) return;
+            }
+            else if(userSetting.type == 'star') {
+                if(starGivedUserIdArr.indexOf(message.userId) == -1) return;
             }
 
             let chat = message.message;
@@ -167,8 +191,12 @@ const handleChatInfoReceived = (action, message) => {
             // 빈채팅 제거
             if(!chat) return;
 
-            chatdiv.insertAdjacentHTML('beforeend', `<div class="p-1"><button class="chat on">${chat}</button></div>`);
-            chatCnt += 1;
+            // 중복된 채팅 제거
+            if(checkChatList[chat]) return;
+
+            chatdiv.insertAdjacentHTML('beforeend', `<div class="p-1"><button class="chat on" onclick="setChatClick(this);">${chat}</button></div>`);
+            checkChatList[chat] = true;
+            changeCntView('add');
 
             // 최대개수가 넘으면 중단
             if(chatCnt == maxChat) {
@@ -176,6 +204,11 @@ const handleChatInfoReceived = (action, message) => {
             }
             break;
         case 'BALLOON_GIFTED':
+            // 별풍선 쏜 유저 타입으로 설정했을때 설정한 개수 이상 선물한 경우
+            if(userSetting.type == 'star' && Number(message.count) >= userSetting.star) {
+                // 가능한 ID에 추가하기
+                starGivedUserIdArr.push(message.userId);
+            }
             break;
         default:
             break;
@@ -184,13 +217,30 @@ const handleChatInfoReceived = (action, message) => {
 
 extensionSdk.chat.listen(handleChatInfoReceived);
 
+// 채팅 버튼 클릭 - 활성화/비활성화
+const setChatClick = (target) => {
+    // 비활성화 시키기
+    if(target.classList.contains('on')) {
+        target.classList.remove('on');
+        target.classList.add('off');
+        changeCntView('sub');
+        checkChatList[target.innerText] = false;
+    }
+    // 활성화 시키기
+    else {
+        target.classList.remove('off');
+        target.classList.add('on');
+        changeCntView('add');
+        checkChatList[target.innerText] = true;
+    }
+}
+
 // Next 버튼
 nextbtn.addEventListener('click', function() {
     const view = ['guide', 'when', 'where', 'who', 'how', 'what', 'last'];
 
-    // 채팅영역 초기화
-    chatdiv.textContent = '';
-    chatCnt = 0;
+    // 초기화
+    initProcessChatView();
 
     switch (view[viewIdx]) {
         case 'guide':
@@ -230,19 +280,8 @@ document.querySelector('#backbtn').addEventListener('click', function() {
     window.location = './bj_user5wh1_screen.html'
 });
 
-// 채팅버튼 click
-chatClasses.forEach((target) => target.addEventListener("click", function(e){
-    if(target.classList.contains('on')) {
-        target.classList.remove('on');
-        target.classList.add('off');
-    }
-    else {
-        target.classList.remove('off');
-        target.classList.add('on');
-    }
-}));
-
 // start click
-document.querySelector('#w_start').addEventListener('click', function() {
+w_start.addEventListener('click', function(target) {
     isProcessing = true;
+    setStartButtonDisplay('hide');
 });
