@@ -55,7 +55,6 @@ const showProcessView = () => {
     setProcessDisplay('show');
     setLastDisplay('hide');
 
-    document.querySelector('#backbtn').style.display = 'block';
     const body = document.querySelector('body');
     body.style.backgroundColor = '#e9a329';
     body.style.color = 'black';
@@ -70,6 +69,7 @@ const showLastView = () => {
     body.style.backgroundColor = '#eb3251';
     body.style.color = 'white';
     nextbtn.style.display = 'none';
+    document.querySelector('#backbtn').style.display = 'block';
 }
 
 const setUserSetting = () => {
