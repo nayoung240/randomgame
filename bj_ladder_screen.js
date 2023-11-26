@@ -92,7 +92,7 @@ $(function(){
             }
 
             i += 1;
-        }, 3000);
+        }, 3000)
     })
 
     // 뒤로가기 버튼
@@ -147,7 +147,13 @@ $(function(){
                 'background-color' : color
             })
             $('#' + node + "-user").text(userName)
-             working = false;
+
+            working = false;
+
+            const nodeResult = $(`.answer-wrap input[data-node=${node}]`).val();
+            let resultel = `<h2>${userName}&nbsp;&nbsp;&nbsp;<img id="match" src="./ladder/next.png" alt="화살표">&nbsp;&nbsp;&nbsp;${nodeResult}</h2>`;
+            document.querySelector('#footer').insertAdjacentHTML('beforeend', resultel);
+
             return false;
         }
 
@@ -198,7 +204,6 @@ $(function(){
                     }, 100);
                 }
             }else{
-                console.log('else')
                if(!!!GLOBAL_FOOT_PRINT.hasOwnProperty(leftNode) && GLOBAL_FOOT_PRINT.hasOwnProperty(rightNode)){      
                     // console.log('좌측라인')
                     if(  (rightNodeInfo["change"] && !!!rightNodeInfo["draw"] ) && !!!GLOBAL_CHECK_FOOT_PRINT[rightNode] ){

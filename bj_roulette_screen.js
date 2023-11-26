@@ -49,7 +49,7 @@ const newMake = () => {
     }
 
     ctx.fillStyle = "#fff";
-    ctx.font = "23px sanserif";
+    ctx.font = '20px IBM Plex Sans KR';
     ctx.textAlign = "center";
 
     // 그려진 배경 위에 텍스트 그리기
