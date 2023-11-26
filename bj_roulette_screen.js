@@ -65,14 +65,12 @@ const newMake = () => {
 
         ctx.rotate(angle + Math.PI / 2);
 
-        product[i].split(" ").forEach((text, j) => {
-            let formatText = text;
-            if (text.length > 9) {
-                formatText = formatText.substr(0, 10) + '...';
-            }
-            ctx.fillText(formatText, 0, 30 * j);
-        });
-
+        const text = product[i];
+        let formatText = text;
+        if (text.length > 9) {
+            formatText = formatText.substr(0, 10) + '...';
+        }
+        ctx.fillText(formatText, 0, 30 * 0);
         ctx.restore();
     }
 }
