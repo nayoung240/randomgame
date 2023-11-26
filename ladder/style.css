@@ -70,6 +70,7 @@ html, body{
 .ladder{
     position: relative;
     margin: 150px auto;
+    margin-left:35px;
     z-index: 0;
 }
 .node{
