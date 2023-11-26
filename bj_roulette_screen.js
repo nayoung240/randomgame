@@ -67,9 +67,16 @@ const newMake = () => {
 
         const text = product[i];
         let formatText = text;
-        if (text.length > 9) {
+        if (product.length < 6 && text.length > 9) {
             formatText = formatText.substr(0, 10) + '...';
+        } else if (product.length === 6 && text.length > 7) {
+            formatText = formatText.substr(0, 8) + '...';
+        } else if (product.length === 7 && text.length > 6) {
+            formatText = formatText.substr(0, 7) + '...';
+        } else if (product.length === 8 && text.length > 5) {
+            formatText = formatText.substr(0, 6) + '...';
         }
+
         ctx.fillText(formatText, 0, 30 * 0);
         ctx.restore();
     }
