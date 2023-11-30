@@ -8,8 +8,7 @@ body {
 }
 
 canvas {
-    transition: 2s;
-    font-family: 'IBM Plex Sans KR', sans-serif;
+    transition: 3s;
 }
 
 button:active {
@@ -35,16 +34,14 @@ div {
     display: flex;
 }
 
-.roulette-btn {
-}
-
 .roulette-btn img {
     cursor: pointer;
     width: 130px;
     height: 80px;
 }
 
-.space-option {
+.roulette-btn img:hover {
+    color: blueviolet;
 }
 
 .num-option {
@@ -74,7 +71,7 @@ div {
     height: 150px;
     top: -45px;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-55%);
     z-index: 100;
 }
 

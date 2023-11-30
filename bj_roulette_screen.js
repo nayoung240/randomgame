@@ -11,6 +11,8 @@ let product = [rultSpace1.value, rultSpace2.value];
 const colors = ["#d3536e", "#e3623f", "#f6b039", "#eee645"
     , "#88d560", "#489d7d", "#55aed5", "#4f4277"];
 
+let setNum; // 랜덤숫자 담을 변수
+
 const init = () => {
     // 유저 화면은 메인으로 보내기
     const SDK = window.AFREECA.ext;
@@ -84,25 +86,29 @@ const newMake = () => {
 
 // 룰렛 돌리기
 const rotate = () => {
-    $c.style.transform = `initial`;
-    $c.style.transition = `initial`;
+    const rolLength = product.length;
+    let deg = [];
 
-    setTimeout(() => {
-        // 룰렛 당첨 결정
-        const ran = Math.floor(Math.random() * product.length);
+    // 룰렛 각도 설정
+    for (let i = 1, len = rolLength; i <= len; i++) {
+      deg.push((360 / len) * i);
+    }
 
-        const arc = 360 / product.length;
-
-        let arcMulitpNum = 3;
-        if ([2, 7, 8].indexOf(product.length) < 0) {
-            arcMulitpNum = 2;
+    // 랜덤 생성된 숫자를 히든 인풋에 넣기
+    let num = 0;
+    setNum = Math.floor(Math.random() * product.length);
+    
+    // 애니설정
+    let ani = setInterval(() => {
+        num++;
+        $c.style.transform = "rotate(" + 360 * num + "deg)";
+        
+        // 총 50에 다달했을때, 즉 마지막 바퀴를 돌고나서
+        if (num === 50) {
+            clearInterval(ani);
+            $c.style.transform = `rotate(${deg[setNum]}deg)`;
         }
-
-        const rotate = (ran * arc) + 3600 + (arc * arcMulitpNum) - (arc / 4);
-
-        $c.style.transform = `rotate(-${rotate}deg)`;
-        $c.style.transition = `2s`;
-    }, 1);
+    }, 50);
 };
 
 const clickPlus = () => {
