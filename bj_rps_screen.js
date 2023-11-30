@@ -75,22 +75,25 @@ const extensionCall = () => {
     extensionSdk.broadcast.send(TIMERSTART_BY_BJ, bjSelectCard);
 
     let winnerList = [];
-    let allCnt = 0;
-    let winCnt = 0;
+    let gameUsrList = [];
+    // let allCnt = 0;
+    // let winCnt = 0;
 
     const handleBroadcastReceived = (action, message, fromId) => {
         // 카드 선택 액션
         if(action === SELECTCARD_BY_USER) {
-            // 이긴 유저인 경우 목록에 추가
+            // 게임 참여한 유저 추가 (중복 제거)
+            gameUsrList = gameUsrList.filter((usrId) => usrId !== fromId);
+            gameUsrList.push(fromId);
+
+            /* 이긴 유저인 경우 목록에 추가
+            유저가 패를 바꿀 경우 선택하는 경우 해당 유저를 winnerList에서 제거 */
+            winnerList = winnerList.filter((winner) => winner !== fromId);
             if(message == 'win') {
                 winnerList.push(fromId);
-                winCnt += 1;
             }
-
-            allCnt += 1;
         }
 
-        // console.log('BjReceived', action, message, fromId);
     }
 
     extensionSdk.broadcast.listen(handleBroadcastReceived);
@@ -106,7 +109,7 @@ const extensionCall = () => {
     // 5초 후에 interval 중단하고 함수 호출
     new Promise(resolve => setTimeout(resolve, 5000)).then(() => {
         clearInterval(setIntervaltimer);
-        showResult(allCnt, winCnt, winnerList);
+        showResult(gameUsrList.length, winnerList.length, winnerList);
     });
 }
 
