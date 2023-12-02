@@ -62,8 +62,17 @@
         background-color: #F6EDF8;
     }
 
+    #resultmsg {
+        margin-top: 20px; margin-bottom: 20px;
+    }
+
+    #imgarea {
+        width: 180px;
+        margin-top: 30px;
+    }
+
     .step_title {
-        color: #FFBD59;
+        color: #fbd965;
     }
 
 </style>
@@ -91,7 +100,7 @@
                 <img id="backbtn" src="./img/go-prev-arrow.png" style="cursor: pointer;" alt="게임 다시하기">
                 <img id="homebtn" src="./img/go-home.png" style="margin-left: auto; cursor: pointer" alt="홈으로 가기">
             </div>
-            <h2 class="step_title">BJ의 선택!</h2>
+            <h2 class="step_title">&lt; BJ의 선택 ! &gt;</h2>
         </div>
     </header>
     <main>
@@ -116,7 +125,8 @@
         </div>
         <!-- 3.결과 화면 -->
         <div class="complete" style="display: none;">
-            <h4 id="resultmsg"></h4>
+            <img id="imgarea" style="display: none;" src="./img/rps/simulook.png" alt="결과이미지">
+            <h5 id="resultmsg"></h5>
             <div class="d-flex justify-content-center">
                 <div class="form-floating">
                     <textarea class="form-control text-black text-center" id="idarea" style="display: none;" wrap="off" disabled></textarea>

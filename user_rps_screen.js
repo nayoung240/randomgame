@@ -11,7 +11,6 @@ const SELECTCARD_BY_BJ = 'selectcard_bj';
 const END_BY_BJ = 'end_bj';
 const IMG_DIRECTORY = './img/rps/';
 
-const selectbtn = document.querySelector('#selectbtn');
 const cntImg = document.querySelector('#cntImg');
 const gamecardClasses = document.querySelectorAll('.gamecard');
 
@@ -126,36 +125,6 @@ gamecardClasses.forEach((target) => target.addEventListener("click", function (e
     extensionSdk.broadcast.send(SELECTCARD_BY_USER, gameResult);
 
 }));
-
-// 선택하기 click
-// selectbtn.addEventListener('click', function () {
-//     const cardselected = document.querySelector('.cardselected');
-//
-//     // 선택한 카드가 없을 때
-//     if (!cardselected) {
-//         const toastElList = document.querySelectorAll('.toast');
-//         const toastBody = document.querySelector('.toast-body');
-//         const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl));
-//
-//         toastList.forEach(toast => {
-//             toastBody.innerText = '카드를 선택해야 합니다!';
-//             toast.show();
-//         })
-//
-//         return; // 종료
-//     }
-//
-//     userSelectCard = cardselected.dataset.card;
-//
-//     gameResult = getGameResultForUser();
-//     // console.log('나의 승부 결과', gameResult);
-//
-//     // BJ에게 승부 결과 전송
-//     extensionSdk.broadcast.send(SELECTCARD_BY_USER, gameResult);
-//
-//     // 선택하기 비활성화
-//     selectbtn.classList.add('disabled');
-// });
 
 const handleBroadcastReceived = (action, message, fromId) => {
     // 게임 시작 액션

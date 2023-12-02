@@ -63,7 +63,7 @@
     }
 
     .step_title {
-        color: #FFBD59;
+        color: #fbd965;
     }
 
 </style>
@@ -71,7 +71,7 @@
 <header class="text-center">
     <!-- 1. 초기 화면 -->
     <div class="default">
-        <h1 class="step_title">BJ가<br>가위바위보 고르는중...</h1>
+        <h1 class="step_title" style="margin-bottom: 35px;">BJ가<br>가위바위보 고르는중...</h1>
         <p>&lt; 카운트다운이 시작되면 선택해주세요 &gt;</p>
     </div>
     <!-- 2. 게임 화면(카운트 다운) -->
@@ -83,7 +83,7 @@
     <!-- 3.결과 화면 -->
     <div class="complete" style="display: none;">
         <img id="resultImg" src="./img/rps/draw.png">
-        <h4 class="step_title">BJ의 선택!</h4>
+        <h4 class="step_title">&lt; BJ의 선택 ! &gt;</h4>
     </div>
 </header>
 <main>
@@ -103,7 +103,6 @@
 <footer class="text-center">
     <!-- 2. 게임 화면(카운트 다운) -->
     <div class="wait" style="display: none;">
-<!--        <button type="button" id="selectbtn" class="btn btn-outline-light col-3">선택하기</button>-->
     </div>
     <!-- 3.결과 화면 -->
     <div class="complete" style="display: none;">

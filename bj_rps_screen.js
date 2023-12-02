@@ -44,23 +44,59 @@ const setCompleteDisplay = (action) => {
     });
 }
 
-const showResult = (allCnt, winCnt, winnerList) => {
+const showResult = (userGameResult) => {
     setWaitDisplay('hide');
     setCompleteDisplay('show');
 
+    let allCnt = 0, winCnt = 0, loseCnt = 0;
+    let winnerList = [];
+
+    for (var key in userGameResult) {
+        if (userGameResult.hasOwnProperty(key)) { 
+            if(userGameResult[key] === 'win') {
+                winCnt += 1;
+                winnerList.push(key)
+            }
+            else if(userGameResult[key] === 'lose') {
+                loseCnt += 1;
+            }
+        }
+
+        allCnt += 1;
+    }
+
+    // console.log(allCnt, winCnt, loseCnt)
+
     const resultmsg = document.querySelector('#resultmsg');
     const idarea = document.querySelector('#idarea');
+    const imgarea = document.querySelector('#imgarea');
     let oResult = {
-        msg : 'BJ가 모두를 이겼습니다!',
+        msg : '가위바위보에 참여한 유저가 없어요 !!',
         winners : ''
     };
 
-    if(winCnt > 0) {
-        oResult.msg = `${allCnt}명중에 ${winCnt}명이 BJ를 이겼습니다!`;
-        oResult.winners = '<< 이긴 유저 >>\n'+winnerList.join('\n');
-
-        idarea.value = oResult.winners;
-        idarea.style.display = '';
+    if(allCnt > 0) {
+        if(winCnt > 0) {
+            oResult.msg = `${allCnt}명중에 ${winCnt}명이 BJ를 이겼습니다 !!`;
+            oResult.winners = '<< 이긴 유저 >>\n'+winnerList.join('\n');
+    
+            idarea.value = oResult.winners;
+            idarea.style.display = '';
+        }
+        else {
+            if(loseCnt == 0) {
+                oResult.msg = `BJ랑 ${allCnt}명의 유저가 이심전심 !!`;
+                imgarea.src = './img/rps/dance.png';
+            }
+            else {
+                oResult.msg = `BJ가 유저 ${allCnt}명 모두를 이겼습니다 !!`;
+                imgarea.src = './img/rps/wow.png';
+            }
+            imgarea.style.display = '';
+        }
+    }
+    else {
+        imgarea.style.display = '';
     }
 
     // 모든 유저에게 공통적인 게임결과 전송 (TODO 외부장치 방송 시 가능한데 프릭샷 방송시 전송이 안됨..)
@@ -74,33 +110,19 @@ const extensionCall = () => {
     // 모든 유저에게 타이머 시작, BJ가 선택한 카드 전송
     extensionSdk.broadcast.send(TIMERSTART_BY_BJ, bjSelectCard);
 
-    let winnerList = [];
-    let gameUsrList = [];
-    // let allCnt = 0;
-    // let winCnt = 0;
+    let userGameResult = {};
 
     const handleBroadcastReceived = (action, message, fromId) => {
         // 카드 선택 액션
         if(action === SELECTCARD_BY_USER) {
-            // 게임 참여한 유저 추가 (중복 제거)
-            gameUsrList = gameUsrList.filter((usrId) => usrId !== fromId);
-            gameUsrList.push(fromId);
-
-            /* 이긴 유저인 경우 목록에 추가
-            유저가 패를 바꿀 경우 선택하는 경우 해당 유저를 winnerList에서 제거 */
-            winnerList = winnerList.filter((winner) => winner !== fromId);
-            if(message == 'win') {
-                winnerList.push(fromId);
-            }
+            userGameResult[fromId] = message;
         }
-
     }
 
     extensionSdk.broadcast.listen(handleBroadcastReceived);
 
     const setIntervaltimer = setInterval(function () {
         timerCount -= 1;
-        console.log('setIntervaltimer')
 
         // 모든 유저에게 타이머 전송
         extensionSdk.broadcast.send(TIMER_BY_BJ, timerCount);
@@ -109,7 +131,8 @@ const extensionCall = () => {
     // 5초 후에 interval 중단하고 함수 호출
     new Promise(resolve => setTimeout(resolve, 5000)).then(() => {
         clearInterval(setIntervaltimer);
-        showResult(gameUsrList.length, winnerList.length, winnerList);
+
+        showResult(userGameResult);
     });
 }
 
