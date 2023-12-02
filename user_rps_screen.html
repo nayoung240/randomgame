@@ -38,8 +38,10 @@
         height: 100px;
     }
 
-    .gamecard img:hover {
-        transform: translateY(-20px);
+    @media(hover: hover) and (pointer: fine) {
+        .gamecard img:hover {
+            transform: translateY(-20px);
+        }
     }
 
     .cardselected[data-card="scissors"] {
