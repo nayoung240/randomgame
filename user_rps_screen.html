@@ -59,7 +59,7 @@
     }
 
     #resultImg {
-        margin-bottom: 10px;
+        margin-bottom: 25px;
     }
 
     .step_title {
@@ -83,7 +83,7 @@
     <!-- 3.결과 화면 -->
     <div class="complete" style="display: none;">
         <img id="resultImg" src="./img/rps/draw.png">
-        <h4 class="step_title">&lt; BJ의 선택 ! &gt;</h4>
+        <h4 class="step_title">&lt; 나의 선택  VS  BJ의 선택  &gt;</h4>
     </div>
 </header>
 <main>
@@ -97,6 +97,9 @@
         </div>
         <div class="gamecard rounded" data-card="paper" id="paperCard">
             <img src="./img/rps/paper.png" alt="보">
+        </div>
+        <div class="gamecard rounded" data-card="" id="bjCard" style="display: none;">
+            <img src="" alt="BJ카드">
         </div>
     </div>
 </main>

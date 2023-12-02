@@ -51,15 +51,31 @@ const showHeaderResult = () => {
     setCompleteDisplay('show');
 
     const resultImg = document.querySelector('#resultImg');
+    const bjCard = document.querySelector('#bjCard');
+    const bjCardImg = document.querySelector('#bjCard img');
 
-    gamecardClasses.forEach(function (el) {
-        // BJ가 고른 카드만 보여주기
-        if (el.dataset.card == bjSelectCard) {
-            el.classList.add('cardselected');
-        } else {
-            el.style.display = 'none';
-        }
-    });
+    // 유저가 선택한 카드가 없을 때
+    if (!userSelectCard) {
+        gamecardClasses[0].style.display = 'none';
+        gamecardClasses[1].style.display = 'none';
+        gamecardClasses[2].style.src = '';
+        document.querySelector('#paperCard img').remove();
+        gamecardClasses[2].insertAdjacentHTML('beforeend', `<h1>X</h1>`);
+    }
+    // 유저가 선택한 카드가 있을 때
+    else {
+        gamecardClasses.forEach(function(el) {
+            if(!el.classList.contains('cardselected')) {
+                el.style.display = 'none';
+            }
+        });
+    }
+
+    // BJ가 선택한 카드
+    bjCard.dataset.card = bjSelectCard;
+    bjCard.style.display = '';
+    bjCard.classList.add('cardselected');
+    bjCardImg.src = `./img/rps/${bjSelectCard}.png`;
 
     if (gameResult) {
         resultImg.src = IMG_DIRECTORY + gameResult + '.png';
