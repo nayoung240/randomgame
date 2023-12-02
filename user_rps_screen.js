@@ -69,6 +69,10 @@ const showHeaderResult = () => {
                 el.style.display = 'none';
             }
         });
+
+        if (gameResult) {
+            resultImg.src = IMG_DIRECTORY + gameResult + '.png';
+        }
     }
 
     // BJ가 선택한 카드
@@ -76,10 +80,6 @@ const showHeaderResult = () => {
     bjCard.style.display = '';
     bjCard.classList.add('cardselected');
     bjCardImg.src = `./img/rps/${bjSelectCard}.png`;
-
-    if (gameResult) {
-        resultImg.src = IMG_DIRECTORY + gameResult + '.png';
-    }
 }
 
 const showUserList = (oResult) => {
