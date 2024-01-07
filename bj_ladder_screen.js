@@ -18,8 +18,8 @@ $(function(){
 
     let userName = "";
 
-    // 유저 화면은 메인으로 보내기
-    extensionSdk.broadcast.send(START_GAME, 'main');
+    // 유저 화면은 사다리화면으로 보내기
+    extensionSdk.broadcast.send(START_GAME, 'ladder');
 
     const canvasDraw = () => {
         ladder.css({
