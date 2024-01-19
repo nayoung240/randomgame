@@ -181,7 +181,7 @@ $(function(){
                 else if(  (leftNodeInfo["change"] &&  !!!leftNodeInfo["draw"] && !!!GLOBAL_CHECK_FOOT_PRINT[leftNode] ) && (rightNodeInfo["change"]) && !!!GLOBAL_CHECK_FOOT_PRINT[rightNode] ){
                     // console.log('RIGHT 우선')
                     stokeLine(x, y, 'w' , 'r' , color ,3)
-                    console.log("right")
+                    // console.log("right")
                     setTimeout(function(){ 
                         return startLineDrawing(rightNode, color)
                      }, 100);
@@ -271,7 +271,7 @@ $(function(){
 
     function resultSetting(){
          let resultList = LADDER[heightNode-1];
-         console.log(resultList )
+        //  console.log(resultList )
 
         let html = '';
 

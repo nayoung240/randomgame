@@ -21,8 +21,6 @@ const setLastDisplay = (action) => {
 }
 
 const handleBroadcastReceived = (action, message, fromId) => {
-    console.log('msg',message);
-
     // 게임 시작 액션
     if(action === START_GAME) {
         if(message == 'main') {
@@ -47,8 +45,6 @@ const handleBroadcastReceived = (action, message, fromId) => {
         
         document.querySelector('#l_text').insertAdjacentHTML('beforeend', message);
     }
-
-    console.log('UserReceived', action, message, fromId);
 }
 
 extensionSdk.broadcast.listen(handleBroadcastReceived);
