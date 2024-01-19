@@ -40,6 +40,9 @@ const handleBroadcastReceived = (action, message, fromId) => {
         else if(message == 'user5wh1') {
             window.location = './user_user5wh1_screen.html';
         }
+        else if(message == 'ladder') {
+            window.location = './user_ladder_screen.html';
+        }
     }
     // 채팅 입력받는 화면
     else if(action === PROCESS) {

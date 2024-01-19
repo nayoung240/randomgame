@@ -2,6 +2,7 @@ $(function(){
     const SDK = window.AFREECA.ext;
     const extensionSdk = SDK();
     const START_GAME = 'start_game';
+    const LAST = 'last';
 
     let heightNode = 10;
     let widthNode =  0;
@@ -40,7 +41,7 @@ $(function(){
         userSetting();
         resultSetting();
 
-        $('html').scrollTop(0);
+        $('body').scrollTop(0);
     }
 
     // 다음페이지
@@ -76,7 +77,7 @@ $(function(){
         $ladderstart.show();
         $('#backbtn').show();
         $(this).hide();
-        $('#footer p').text('');
+        $('#footer h3').text('결과는 ?!');
 
         let i = 1;
         let ladderlength = $ladderstart.length;
@@ -153,6 +154,9 @@ $(function(){
             const nodeResult = $(`.answer-wrap input[data-node=${node}]`).val();
             let resultel = `<h2>${userName}&nbsp;&nbsp;&nbsp;<img id="match" src="./ladder/next.png" alt="화살표">&nbsp;&nbsp;&nbsp;${nodeResult}</h2>`;
             document.querySelector('#footer').insertAdjacentHTML('beforeend', resultel);
+
+            // 유저에게 결과 보내기
+            extensionSdk.broadcast.send(LAST, resultel);
 
             return false;
         }

@@ -22,27 +22,6 @@
         margin-top: 10px;
     }
 
-    .guide {
-        border: 2px solid rgba(0,0,0,.125);
-        border-radius: 3.25rem;
-        margin: 22px 22px 0px 22px;
-    }
-
-    #condition {
-        text-align: left;
-        font-size: 12px;
-        margin-left: 10px;
-        color:  #00ffc8;
-    }
-
-    #guide5w {
-        border-color: #00ffc8;
-    }
-
-    #guide5w h4 {
-        color:  #00ffc8;
-    }
-
     #p_text, #l_text {
         position: absolute;
         top: 35%;
@@ -50,7 +29,12 @@
     }
 
     #p_text span {
-        color:  #00ffc8;
+        color:  #f58bcb;;
+    }
+
+    .last h4 {
+        margin-top: 70px;
+        color:  #f58bcb;
     }
 </style>
 <body>
@@ -59,11 +43,12 @@
     <main class="text-center">
         <div class="process">
             <div id="p_text">
-                <h3>BJ가 <span id="viewtype">사다리게임</span> 을 진행하고<br><br>유저 화면에서는 결과를 볼 수 있어요!</h3>
+                <h3>BJ가 <span id="viewtype">사다리게임</span> 을 진행하고<br><br>현재 화면에서는<br><br>결과를 확인할 수 있어요!</h3>
             </div>
         </div>
         <div class="last" style="display: none;">
-            <h4 id="l_text">BJ가 슬롯을 돌릴 수 있습니다!</h4>
+            <h4>사다리게임 결과는 ?!</h4>
+            <div id="l_text"></div>
         </div>
     </main>
     <!--JavaScript at end of body for optimized loading-->

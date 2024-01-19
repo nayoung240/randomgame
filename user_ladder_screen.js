@@ -21,6 +21,8 @@ const setLastDisplay = (action) => {
 }
 
 const handleBroadcastReceived = (action, message, fromId) => {
+    console.log('msg',message);
+
     // 게임 시작 액션
     if(action === START_GAME) {
         if(message == 'main') {
@@ -32,15 +34,18 @@ const handleBroadcastReceived = (action, message, fromId) => {
         else if(message == 'user5wh1') {
             window.location = './user_user5wh1_screen.html';
         }
+        else if(message == 'ladder') {
+            window.location = './user_ladder_screen.html';
+        }
     }
     else if(action === PROCESS) {
         setLastDisplay('hide');
-        document.querySelector('#viewtype').innerText = message.viewtype;
-        document.querySelector('#usertype').innerText = message.usertype;
     }
     else if(action === LAST) {
         setProcessDisplay('hide');
         setLastDisplay('show');
+        
+        document.querySelector('#l_text').insertAdjacentHTML('beforeend', message);
     }
 
     console.log('UserReceived', action, message, fromId);

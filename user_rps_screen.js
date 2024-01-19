@@ -147,8 +147,15 @@ const handleBroadcastReceived = (action, message, fromId) => {
     if (action === START_GAME) {
         if (message == 'main') {
             window.location = './user_screen.html';
-        } else if (message == 'rps') {
+        } 
+        else if (message == 'rps') {
             window.location = './user_rps_screen.html';
+        }
+        else if(message == 'user5wh1') {
+            window.location = './user_user5wh1_screen.html';
+        }
+        else if(message == 'ladder') {
+            window.location = './user_ladder_screen.html';
         }
     }
     // 초기 타이머 액션
